@@ -1,0 +1,22 @@
+{
+  "name": "Swiftxy",
+  "version": "0.1.0",
+  "summary": "A short description of Swiftxy.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/NSLyapustin/Swiftxy",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "NSLyapustin": "n.lyapustin@tinkoff.ru"
+  },
+  "source": {
+    "git": "https://github.com/NSLyapustin/Swiftxy.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "Swiftxy/Classes/**/*"
+}

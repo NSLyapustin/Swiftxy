@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		12E792F9D579E56F06DB00B9 /* Pods-Swiftxy_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiftxy_Example.release.xcconfig"; path = "Target Support Files/Pods-Swiftxy_Example/Pods-Swiftxy_Example.release.xcconfig"; sourceTree = "<group>"; };
 		19C7000A47EC4F94AAC25FCE /* Pods-Swiftxy_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiftxy_Tests.release.xcconfig"; path = "Target Support Files/Pods-Swiftxy_Tests/Pods-Swiftxy_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		1F4EA635E18CE4E067AC1B56 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		1F4EA635E18CE4E067AC1B56 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		401617D41DEEABB4236B047D /* Pods-Swiftxy_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiftxy_Example.debug.xcconfig"; path = "Target Support Files/Pods-Swiftxy_Example/Pods-Swiftxy_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5224E14FFC5ADA4DD0386AEF /* Pods_Swiftxy_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swiftxy_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD01AFB9204008FA782 /* Swiftxy_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swiftxy_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +44,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		62DEEAF0710C3744D3D71960 /* Pods-Swiftxy_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiftxy_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Swiftxy_Tests/Pods-Swiftxy_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7351CA8B595C94C9C2FE180B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		9D07C824A7D04AA510332E02 /* Swiftxy.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Swiftxy.podspec; path = ../Swiftxy.podspec; sourceTree = "<group>"; };
+		7351CA8B595C94C9C2FE180B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		9D07C824A7D04AA510332E02 /* Swiftxy.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Swiftxy.podspec; path = ../Swiftxy.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A22A1F79A6B8B78CFF3499F0 /* Pods_Swiftxy_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swiftxy_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -147,7 +147,6 @@
 				62DEEAF0710C3744D3D71960 /* Pods-Swiftxy_Tests.debug.xcconfig */,
 				19C7000A47EC4F94AAC25FCE /* Pods-Swiftxy_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -227,6 +226,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

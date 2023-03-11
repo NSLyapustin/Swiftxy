@@ -1,0 +1,16 @@
+PODS:
+  - Swiftxy (0.1.0)
+
+DEPENDENCIES:
+  - Swiftxy (from `../`)
+
+EXTERNAL SOURCES:
+  Swiftxy:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Swiftxy: 581980a5ba12abf56b407d0c4fc9c422f85911a2
+
+PODFILE CHECKSUM: 2f1a9abb1d863e3121eee307b45caa1392d63986
+
+COCOAPODS: 1.11.3

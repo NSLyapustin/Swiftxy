@@ -1,0 +1,6 @@
+framework module Swiftxy {
+  umbrella header "Swiftxy-umbrella.h"
+
+  export *
+  module * { export * }
+}
