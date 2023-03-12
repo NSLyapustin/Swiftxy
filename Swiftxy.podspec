@@ -26,9 +26,10 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'NSLyapustin' => 'n.lyapustin@tinkoff.ru' }
   s.source           = { :git => 'https://github.com/NSLyapustin/Swiftxy.git', :tag => s.version.to_s }
+  s.resources        = "Swiftxy/*.xcdatamodeld"
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '13.0'
 
   s.source_files = 'Swiftxy/Classes/**/*'
   
