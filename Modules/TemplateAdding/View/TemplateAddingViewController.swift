@@ -108,7 +108,9 @@ final class TemplateAddingViewController: UIViewController {
         ])
     }
 
-    @objc private func saveButtonTapped() {}
+    @objc private func saveButtonTapped() {
+        output.saveBreakpoint(name: nameTextField.text, template: templateTextField.text)
+    }
     @objc private func closeButtonTapped() {}
 }
 

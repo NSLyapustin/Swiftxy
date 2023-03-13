@@ -5,6 +5,7 @@
 //  Created by n.lyapustin on 26.02.2023.
 //
 
+import CoreData
 import Foundation
 
 final class TemplatesListPresenter {
@@ -18,8 +19,11 @@ final class TemplatesListPresenter {
 
 extension TemplatesListPresenter: TemplatesListViewOutput {
     func viewDidLoad() {
-        guard let templates = UserDefaults.standard.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else { return }
-        view?.set(templates: templates)
+//        guard let templates = UserDefaults.standard.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else { return }
+//        view?.set(templates: templates)
+
+        let templates = try! CoreDataStorage()?.fetchBreakpoints().map { $0.template }
+        view?.set(templates: templates!)
     }
 
     func addButtonTapped() {

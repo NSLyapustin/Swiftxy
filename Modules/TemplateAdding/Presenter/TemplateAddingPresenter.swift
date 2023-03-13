@@ -9,6 +9,8 @@ import Foundation
 
 final class TemplateAddingPresenter {
 
+    let coreData = CoreDataStorage()
+
     // MARK: Internal properties
 
     weak var view: TemplateAddingViewInput?
@@ -17,6 +19,8 @@ final class TemplateAddingPresenter {
 // MARK: TemplateAddingViewOutput
 
 extension TemplateAddingPresenter: TemplateAddingViewOutput {
-    func viewDidLoad() {
+    func saveBreakpoint(name: String?, template: String?) {
+        guard let name = name, let template = template else { return }
+        try! coreData?.save(BreakpointRule(name: name, template: template))
     }
 }

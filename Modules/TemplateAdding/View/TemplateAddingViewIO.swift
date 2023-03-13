@@ -9,4 +9,6 @@ import Foundation
 
 protocol TemplateAddingViewInput: AnyObject {}
 
-protocol TemplateAddingViewOutput: AnyObject {}
+protocol TemplateAddingViewOutput: AnyObject {
+    func saveBreakpoint(name: String?, template: String?)
+}
