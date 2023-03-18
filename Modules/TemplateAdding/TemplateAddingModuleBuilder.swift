@@ -8,8 +8,21 @@
 import UIKit
 
 final class TemplateAddingModuleBuilder {
+
+    // MARK: Private properties
+
+    private let output: TemplateAddingModuleOutput
+
+    // MARK: Lifecycle
+
+    init(output: TemplateAddingModuleOutput) {
+        self.output = output
+    }
+
+    // MARK: Internal methods
+
     func build() -> UIViewController {
-        let presenter = TemplateAddingPresenter()
+        let presenter = TemplateAddingPresenter(output: output)
         let view = TemplateAddingViewController(output: presenter)
         presenter.view = view
 

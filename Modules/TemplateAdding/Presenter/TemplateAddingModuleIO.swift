@@ -9,4 +9,6 @@ import Foundation
 
 protocol TemplateAddingModuleInput: AnyObject {}
 
-protocol TemplateAddingModuleOutput: AnyObject {}
+protocol TemplateAddingModuleOutput: AnyObject {
+    func moduleDidFinish()
+}

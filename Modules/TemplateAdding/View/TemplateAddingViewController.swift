@@ -76,6 +76,7 @@ final class TemplateAddingViewController: UIViewController {
             NSLayoutConstraint(item: closeButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 8),
             NSLayoutConstraint(item: closeButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 16),
         ])
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
 
         addLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addLabel)
@@ -109,12 +110,21 @@ final class TemplateAddingViewController: UIViewController {
     }
 
     @objc private func saveButtonTapped() {
-        output.saveBreakpoint(name: nameTextField.text, template: templateTextField.text)
+        guard let name = nameTextField.text,
+              let template = templateTextField.text,
+              !name.isEmpty, !template.isEmpty
+        else {
+            return
+        }
+        output.saveBreakpoint(name: name, template: template)
     }
-    @objc private func closeButtonTapped() {}
+    @objc private func closeButtonTapped() { output.viewWantsToDismiss() }
 }
 
 // MARK: TemplateAddingViewInput
 
 extension TemplateAddingViewController: TemplateAddingViewInput {
+    func dismiss() {
+        self.dismiss(animated: true)
+    }
 }

@@ -13,13 +13,20 @@ public class ProxiedURLSession {
 
     private let session = URLSession.shared
     private let userDefaults = UserDefaults.standard
+    private let localStorage = CoreDataStorage()
 
     // MARK: Public methods
 
     open func dataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
 
         // Getting all proxied templates
-        guard let templates = userDefaults.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else {
+//        guard let templates = userDefaults.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else {
+//            return session.dataTask(with: request, completionHandler: completionHandler)
+//        }
+
+        guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
+              let templates = optionalTemplates
+        else {
             return session.dataTask(with: request, completionHandler: completionHandler)
         }
 
@@ -42,9 +49,12 @@ public class ProxiedURLSession {
 
     open func dataTask(with url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         // Getting all proxied templates
-        guard let templates = userDefaults.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else {
+        guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
+              let templates = optionalTemplates
+        else {
             return session.dataTask(with: url, completionHandler: completionHandler)
         }
+
 
         // Check if url matches template
         for template in templates {

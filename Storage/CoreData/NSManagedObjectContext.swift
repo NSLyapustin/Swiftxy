@@ -41,11 +41,14 @@ class CoreDataStorage {
     }
 
     public func save(_ breakpoint: BreakpointRule) throws {
-        let entity = NSEntityDescription.entity(forEntityName: "BreakpointRule", in: managedObjectContext!)
-        let breakpointManagedObject = NSManagedObject(entity: entity!, insertInto: managedObjectContext)
+        let breakpointManagedObject = NSEntityDescription.insertNewObject(
+            forEntityName: "BreakpointRule",
+            into: self.managedObjectContext!)
+        as! BreakpointRuleManagedObject
 
-        managedObjectContext?.setValue(breakpoint.template, forKeyPath: "ruleTemplate")
-        managedObjectContext?.setValue(breakpoint.name, forKeyPath: "ruleName")
+        breakpointManagedObject.id = UUID()
+        breakpointManagedObject.ruleName = breakpoint.name
+        breakpointManagedObject.ruleTemplate = breakpoint.template
 
         try managedObjectContext?.save()
     }

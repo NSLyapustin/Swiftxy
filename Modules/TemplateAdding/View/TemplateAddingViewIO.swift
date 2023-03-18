@@ -7,8 +7,11 @@
 
 import Foundation
 
-protocol TemplateAddingViewInput: AnyObject {}
+protocol TemplateAddingViewInput: AnyObject {
+    func dismiss()
+}
 
 protocol TemplateAddingViewOutput: AnyObject {
-    func saveBreakpoint(name: String?, template: String?)
+    func saveBreakpoint(name: String, template: String)
+    func viewWantsToDismiss()
 }

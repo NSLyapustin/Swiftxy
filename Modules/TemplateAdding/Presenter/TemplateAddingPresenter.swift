@@ -9,18 +9,32 @@ import Foundation
 
 final class TemplateAddingPresenter {
 
-    let coreData = CoreDataStorage()
-
     // MARK: Internal properties
 
     weak var view: TemplateAddingViewInput?
+
+    // MARK: Private methods
+
+    private weak var output: TemplateAddingModuleOutput?
+    private let localStorage = CoreDataStorage()
+
+    // MARK: Lifecycle
+
+    init(output: TemplateAddingModuleOutput) {
+        self.output = output
+    }
 }
 
 // MARK: TemplateAddingViewOutput
 
 extension TemplateAddingPresenter: TemplateAddingViewOutput {
-    func saveBreakpoint(name: String?, template: String?) {
-        guard let name = name, let template = template else { return }
-        try! coreData?.save(BreakpointRule(name: name, template: template))
+    func saveBreakpoint(name: String, template: String) {
+        try! localStorage?.save(BreakpointRule(name: name, template: template))
+        view?.dismiss()
+        output?.moduleDidFinish()
+    }
+
+    func viewWantsToDismiss() {
+        view?.dismiss()
     }
 }

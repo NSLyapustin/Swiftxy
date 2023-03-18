@@ -24,8 +24,6 @@ class ViewController: UIViewController {
 
         print(components.url!)
 
-        URLSession.proxied.addTemplate("http://api.weatherapi.com/v1/current.json?key=5b4dfd35ac534755878113939232801&q=Вфывфыв")
-
         let task = URLSession.proxied.dataTask(with: components.url!) {(data, response, error) in
             guard let httpReponse = response as? HTTPURLResponse else { return }
             guard let weather = String(data: data!, encoding: .utf8) else { return }

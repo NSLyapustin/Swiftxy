@@ -14,23 +14,34 @@ final class TemplatesListPresenter {
 
     weak var view: TemplatesListViewInput?
 
+    // MARK: Private properties
+
+    private let localStorage = CoreDataStorage()
+
     // MARK: Lifecycle
+
+    private func reloadData() {
+        let templates = try! localStorage?.fetchBreakpoints().map { $0.template }
+        view?.set(templates: templates!)
+    }
 }
 
 extension TemplatesListPresenter: TemplatesListViewOutput {
     func viewDidLoad() {
-//        guard let templates = UserDefaults.standard.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else { return }
-//        view?.set(templates: templates)
-
-        let templates = try! CoreDataStorage()?.fetchBreakpoints().map { $0.template }
-        view?.set(templates: templates!)
+        reloadData()
     }
 
     func addButtonTapped() {
-        view?.present(TemplateAddingModuleBuilder().build())
+        view?.present(TemplateAddingModuleBuilder(output: self).build())
     }
 
     func closeButtonTapped() {
         view?.close()
+    }
+}
+
+extension TemplatesListPresenter: TemplateAddingModuleOutput {
+    func moduleDidFinish() {
+        reloadData()
     }
 }
