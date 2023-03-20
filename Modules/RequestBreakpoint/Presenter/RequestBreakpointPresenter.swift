@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+final class RequestBreakpointPresenter {
+
+    // MARK: Internal properties
+
+    weak var view: RequestBreakpointViewInput?
+}
+
+extension RequestBreakpointPresenter: RequestBreakpointViewOutput {}
+
+extension RequestBreakpointPresenter: RequestBreakpointModuleInput {}

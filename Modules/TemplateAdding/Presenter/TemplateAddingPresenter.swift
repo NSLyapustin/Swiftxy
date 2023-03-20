@@ -13,7 +13,7 @@ final class TemplateAddingPresenter {
 
     weak var view: TemplateAddingViewInput?
 
-    // MARK: Private methods
+    // MARK: Private properties
 
     private weak var output: TemplateAddingModuleOutput?
     private let localStorage = CoreDataStorage()

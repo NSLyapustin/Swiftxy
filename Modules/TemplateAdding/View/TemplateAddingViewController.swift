@@ -63,6 +63,7 @@ final class TemplateAddingViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupViews()
     }
 

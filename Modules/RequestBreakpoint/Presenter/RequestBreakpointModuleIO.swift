@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol RequestBreakpointModuleInput: AnyObject {}
+
+protocol RequestBreakpointModuleOutput: AnyObject {}

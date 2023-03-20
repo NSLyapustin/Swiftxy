@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+final class RequestBreakpointModuleBuilder {
+
+    // MARK: Internal methods
+
+    func build() -> UIViewController {
+        let presenter = RequestBreakpointPresenter()
+        let view = RequestBreakpointViewController(output: presenter)
+        presenter.view = view
+
+        return view
+    }
+}
