@@ -21,8 +21,8 @@ final class TemplatesListPresenter {
     // MARK: Lifecycle
 
     private func reloadData() {
-        let templates = try! localStorage?.fetchBreakpoints().map { $0.template }
-        view?.set(templates: templates!)
+        let breakpoints = try! localStorage?.fetchBreakpoints().map { TemplateListTableViewCell.DisplayData(name: $0.name, template: $0.template) } ?? []
+        view?.set(breakpoints: breakpoints)
     }
 }
 

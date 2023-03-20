@@ -40,7 +40,7 @@ class TemplatesListViewController: UIViewController {
         return label
     }()
 
-    private var templates: [String] = []
+    private var breakpoints: [TemplateListTableViewCell.DisplayData] = []
 
     // MARK: Internal properties
 
@@ -112,8 +112,8 @@ extension TemplatesListViewController: TemplatesListViewInput {
         present(viewController, animated: true)
     }
 
-    func set(templates: [String]) {
-        self.templates = templates
+    func set(breakpoints: [TemplateListTableViewCell.DisplayData]) {
+        self.breakpoints = breakpoints
         tableView.reloadData()
     }
 
@@ -126,12 +126,12 @@ extension TemplatesListViewController: TemplatesListViewInput {
 
 extension TemplatesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        templates.count
+        breakpoints.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TemplateListTableViewCell.reuseIdentifier) as? TemplateListTableViewCell else { return UITableViewCell() }
-        cell.configure(with: templates[indexPath.row])
+        cell.configure(with: breakpoints[indexPath.row])
         return cell
     }
 }

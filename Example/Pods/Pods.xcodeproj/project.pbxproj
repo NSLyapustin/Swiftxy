@@ -31,6 +31,11 @@
 		63310BCC29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BCA29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift */; };
 		63310BD129BE6AAA00BD0A43 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BD029BE6AAA00BD0A43 /* NSManagedObjectContext.swift */; };
 		63310BD529BE6EFD00BD0A43 /* BreakpointRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */; };
+		6380F74929C5C340002D5187 /* RequestBreakpointModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74829C5C340002D5187 /* RequestBreakpointModuleBuilder.swift */; };
+		6380F74B29C5C34D002D5187 /* RequestBreakpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74A29C5C34D002D5187 /* RequestBreakpointViewController.swift */; };
+		6380F74D29C5C356002D5187 /* RequestBreakpointViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */; };
+		6380F74F29C5C364002D5187 /* RequestBreakpointModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74E29C5C364002D5187 /* RequestBreakpointModuleIO.swift */; };
+		6380F75129C5C36C002D5187 /* RequestBreakpointPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F75029C5C36C002D5187 /* RequestBreakpointPresenter.swift */; };
 		7BCAE0BE8977E31C79B5E0AC81ECF0C9 /* Pods-Swiftxy_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D604EA5CC8D73F21EBF3A0EEDDC5C327 /* Pods-Swiftxy_Example-dummy.m */; };
 		7DBC80C866D26B67D8F8D54CFDAD5A40 /* Pods-Swiftxy_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 386A6AD6CDBBCA921200C6EA363FC1C6 /* Pods-Swiftxy_Tests-dummy.m */; };
 		BB025D040A7C3397EA36561A863CA2C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
@@ -92,6 +97,11 @@
 		63310BCA29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BreakpointRuleManagedObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		63310BD029BE6AAA00BD0A43 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakpointRule.swift; sourceTree = "<group>"; };
+		6380F74829C5C340002D5187 /* RequestBreakpointModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointModuleBuilder.swift; sourceTree = "<group>"; };
+		6380F74A29C5C34D002D5187 /* RequestBreakpointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointViewController.swift; sourceTree = "<group>"; };
+		6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointViewIO.swift; sourceTree = "<group>"; };
+		6380F74E29C5C364002D5187 /* RequestBreakpointModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointModuleIO.swift; sourceTree = "<group>"; };
+		6380F75029C5C36C002D5187 /* RequestBreakpointPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointPresenter.swift; sourceTree = "<group>"; };
 		67B47AB0201CF25C2D8E8D2396635757 /* Swiftxy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Swiftxy-prefix.pch"; sourceTree = "<group>"; };
 		68F99C2D9BC66944E887B03677B6292B /* Pods-Swiftxy_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Swiftxy_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6BB810A8317850E24F751DF39847D42C /* Pods-Swiftxy_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Swiftxy_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +186,7 @@
 		63310B9929BE1FE400BD0A43 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				6380F74529C5C318002D5187 /* RequestBreakpoint */,
 				63310B9A29BE1FE400BD0A43 /* TemplateAdding */,
 				63310BA429BE1FE400BD0A43 /* TemplatesList */,
 			);
@@ -313,6 +324,34 @@
 				63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		6380F74529C5C318002D5187 /* RequestBreakpoint */ = {
+			isa = PBXGroup;
+			children = (
+				6380F74729C5C32E002D5187 /* View */,
+				6380F74629C5C328002D5187 /* Presenter */,
+				6380F74829C5C340002D5187 /* RequestBreakpointModuleBuilder.swift */,
+			);
+			path = RequestBreakpoint;
+			sourceTree = "<group>";
+		};
+		6380F74629C5C328002D5187 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				6380F74E29C5C364002D5187 /* RequestBreakpointModuleIO.swift */,
+				6380F75029C5C36C002D5187 /* RequestBreakpointPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		6380F74729C5C32E002D5187 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6380F74A29C5C34D002D5187 /* RequestBreakpointViewController.swift */,
+				6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		7529D0B061B4BEEFF53DE5E76BD4B3FF /* Support Files */ = {
@@ -570,21 +609,26 @@
 				63310BD529BE6EFD00BD0A43 /* BreakpointRule.swift in Sources */,
 				63310BBE29BE1FE400BD0A43 /* TemplatesListVIewIO.swift in Sources */,
 				63310BB029BE1FE400BD0A43 /* String+Extensions.swift in Sources */,
+				6380F74B29C5C34D002D5187 /* RequestBreakpointViewController.swift in Sources */,
+				6380F74F29C5C364002D5187 /* RequestBreakpointModuleIO.swift in Sources */,
 				63310BB529BE1FE400BD0A43 /* TemplateAddingModuleBuilder.swift in Sources */,
 				63310BB829BE1FE400BD0A43 /* TextField.swift in Sources */,
 				63310BB629BE1FE400BD0A43 /* TemplateAddingViewIO.swift in Sources */,
 				63310BB929BE1FE400BD0A43 /* TemplatesListModuleIO.swift in Sources */,
 				63310BB429BE1FE400BD0A43 /* TemplateAddingModuleIO.swift in Sources */,
 				63310BB229BE1FE400BD0A43 /* URL+Extensions.swift in Sources */,
+				6380F75129C5C36C002D5187 /* RequestBreakpointPresenter.swift in Sources */,
 				63310BBF29BE1FE400BD0A43 /* ProxiedURLSession.swift in Sources */,
 				63310BD129BE6AAA00BD0A43 /* NSManagedObjectContext.swift in Sources */,
 				63310BBC29BE1FE400BD0A43 /* TemplatesListViewController.swift in Sources */,
+				6380F74929C5C340002D5187 /* RequestBreakpointModuleBuilder.swift in Sources */,
 				63310BC429BE22D200BD0A43 /* Swiftxy.xcdatamodeld in Sources */,
 				63310BB729BE1FE400BD0A43 /* TemplateAddingViewController.swift in Sources */,
 				0DEEB502DFEF1F8D566540308976C17D /* Swiftxy-dummy.m in Sources */,
 				63310BBA29BE1FE400BD0A43 /* TemplatesListPresenter.swift in Sources */,
 				63310BBB29BE1FE400BD0A43 /* TemplatesListModuleBuilder.swift in Sources */,
 				63310BB129BE1FE400BD0A43 /* URLSession+Extensions.swift in Sources */,
+				6380F74D29C5C356002D5187 /* RequestBreakpointViewIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

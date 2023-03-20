@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TemplatesListViewInput: AnyObject {
-    func set(templates: [String])
+    func set(breakpoints: [TemplateListTableViewCell.DisplayData])
     func close()
     func present(_ viewController: UIViewController)
 }
