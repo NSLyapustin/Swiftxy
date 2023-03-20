@@ -9,13 +9,19 @@ import UIKit
 
 final class TemplateAddingModuleBuilder {
 
+    // MARK:
+
+    typealias RequestDisplayData = RequestBreakpointViewController.DisplayData
+
     // MARK: Private properties
 
     private let output: TemplateAddingModuleOutput
+    private let displayData: RequestBreakpointViewController.DisplayData
 
     // MARK: Lifecycle
 
-    init(output: TemplateAddingModuleOutput) {
+    init(displayData: RequestDisplayData, output: TemplateAddingModuleOutput) {
+        self.displayData = displayData
         self.output = output
     }
 

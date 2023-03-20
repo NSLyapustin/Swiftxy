@@ -35,7 +35,7 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            self.present(TemplatesListModuleBuilder().build(), animated: true)
+            self.present(RequestBreakpointModuleBuilder().build(), animated: true)
         }
     }
 }
