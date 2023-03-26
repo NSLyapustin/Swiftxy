@@ -15,6 +15,8 @@ class ViewController: UIViewController {
         becomeFirstResponder()
     }
 
+    @IBOutlet weak var dataLabel: UILabel!
+
     @IBAction func buttonDidTapped(_ sender: Any) {
         var components = URLComponents(string: "http://api.weatherapi.com/v1/current.json")!
         components.queryItems = [
@@ -22,15 +24,17 @@ class ViewController: UIViewController {
             URLQueryItem(name: "q", value: "Paris")
         ]
 
-        print(components.url!)
+        var text = ""
 
-        let task = URLSession.proxied.dataTask(with: components.url!) {(data, response, error) in
+        let task = URLSession.proxied.dataTask(with: components.url!) { [weak self] (data, response, error) in
             guard let httpReponse = response as? HTTPURLResponse else { return }
             guard let weather = String(data: data!, encoding: .utf8) else { return }
-            print(weather)
+            DispatchQueue.main.async {
+                self?.dataLabel.text = weather
+            }
+        } completionDataTask: { task in
+            task?.resume()
         }
-
-        task.resume()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

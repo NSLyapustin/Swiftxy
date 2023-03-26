@@ -47,43 +47,39 @@ public class ProxiedURLSession {
         return session.dataTask(with: request, completionHandler: completionHandler)
     }
 
-    open func dataTask(with url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
         // Getting all proxied templates
         guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
               let templates = optionalTemplates
         else {
-            return session.dataTask(with: url, completionHandler: completionHandler)
+            completionDataTask(session.dataTask(with: url, completionHandler: completionHandler))
+            return
         }
 
-        let group = DispatchGroup()
-        var dataTask: URLSessionDataTask?
+        var templateFounded = false
 
         // Check if url matches template
         for template in templates {
             if URL.compareURL(url.absoluteString, with: template) {
+                templateFounded = true
                 let requestBreakpointViewController = RequestBreakpointModuleBuilder(
                     displayData: .init(
-                        url: url.host,
+                        url: url.scheme! + "://" + url.host! + url.path,
                         queryParameters: convertStringToDictionary(url.query),
                         headers: nil,
                         body: nil
                     )
                 ).build()
-                requestBreakpointViewController.onConfigured = { [weak requestBreakpointViewController] in
-                    guard let customDataTask = requestBreakpointViewController?.customDataTask else {
-                        group.leave()
-                        return
-                    }
-                    dataTask = customDataTask
-                    group.leave()
+                requestBreakpointViewController.onConfiguredWithURLComponents = { [weak requestBreakpointViewController] configuredComponents in
+                    completionDataTask(URLSession.shared.dataTask(with: configuredComponents.url!, completionHandler: completionHandler))
                 }
                 UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)
-                group.enter()
             }
         }
 
-        group.wait()
-        return dataTask ?? session.dataTask(with: url, completionHandler: completionHandler)
+        if !templateFounded {
+            completionDataTask(session.dataTask(with: url, completionHandler: completionHandler))
+        }
     }
 
     public func addTemplate(_ template: String) {

@@ -20,20 +20,32 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-NX-vd9">
-                                <rect key="frame" x="156.5" y="316" width="62" height="35"/>
+                                <rect key="frame" x="156.5" y="116" width="62" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Paris"/>
                                 <connections>
                                     <action selector="buttonDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DaF-o0-mdI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVG-PC-Sge">
+                                <rect key="frame" x="32" y="174" width="311" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tDA-NX-vd9" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="Xdp-Ho-Uaw"/>
+                            <constraint firstItem="sVG-PC-Sge" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="Dog-pm-oN5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sVG-PC-Sge" secondAttribute="trailing" constant="16" id="P07-di-GVa"/>
+                            <constraint firstItem="tDA-NX-vd9" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="-200" id="Xdp-Ho-Uaw"/>
                             <constraint firstItem="tDA-NX-vd9" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ZHe-o7-LaA"/>
+                            <constraint firstItem="sVG-PC-Sge" firstAttribute="top" secondItem="tDA-NX-vd9" secondAttribute="bottom" constant="23" id="xbX-ff-bgu"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dataLabel" destination="sVG-PC-Sge" id="Pm9-Ma-jCY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

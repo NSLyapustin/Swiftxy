@@ -36,6 +36,7 @@
 		6380F74D29C5C356002D5187 /* RequestBreakpointViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */; };
 		6380F74F29C5C364002D5187 /* RequestBreakpointModuleIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74E29C5C364002D5187 /* RequestBreakpointModuleIO.swift */; };
 		6380F75129C5C36C002D5187 /* RequestBreakpointPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F75029C5C36C002D5187 /* RequestBreakpointPresenter.swift */; };
+		63EE7C7029D098CB002ACE4F /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE7C6F29D098CB002ACE4F /* TextView.swift */; };
 		7BCAE0BE8977E31C79B5E0AC81ECF0C9 /* Pods-Swiftxy_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D604EA5CC8D73F21EBF3A0EEDDC5C327 /* Pods-Swiftxy_Example-dummy.m */; };
 		7DBC80C866D26B67D8F8D54CFDAD5A40 /* Pods-Swiftxy_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 386A6AD6CDBBCA921200C6EA363FC1C6 /* Pods-Swiftxy_Tests-dummy.m */; };
 		BB025D040A7C3397EA36561A863CA2C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
@@ -102,6 +103,7 @@
 		6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointViewIO.swift; sourceTree = "<group>"; };
 		6380F74E29C5C364002D5187 /* RequestBreakpointModuleIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointModuleIO.swift; sourceTree = "<group>"; };
 		6380F75029C5C36C002D5187 /* RequestBreakpointPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointPresenter.swift; sourceTree = "<group>"; };
+		63EE7C6F29D098CB002ACE4F /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		67B47AB0201CF25C2D8E8D2396635757 /* Swiftxy-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Swiftxy-prefix.pch"; sourceTree = "<group>"; };
 		68F99C2D9BC66944E887B03677B6292B /* Pods-Swiftxy_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Swiftxy_Tests-umbrella.h"; sourceTree = "<group>"; };
 		6BB810A8317850E24F751DF39847D42C /* Pods-Swiftxy_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Swiftxy_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				63310BA329BE1FE400BD0A43 /* TextField.swift */,
+				63EE7C6F29D098CB002ACE4F /* TextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				63310BB229BE1FE400BD0A43 /* URL+Extensions.swift in Sources */,
 				6380F75129C5C36C002D5187 /* RequestBreakpointPresenter.swift in Sources */,
 				63310BBF29BE1FE400BD0A43 /* ProxiedURLSession.swift in Sources */,
+				63EE7C7029D098CB002ACE4F /* TextView.swift in Sources */,
 				63310BD129BE6AAA00BD0A43 /* NSManagedObjectContext.swift in Sources */,
 				63310BBC29BE1FE400BD0A43 /* TemplatesListViewController.swift in Sources */,
 				6380F74929C5C340002D5187 /* RequestBreakpointModuleBuilder.swift in Sources */,

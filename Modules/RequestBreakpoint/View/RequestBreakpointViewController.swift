@@ -20,7 +20,8 @@ public final class RequestBreakpointViewController: UIViewController {
 
     // MARK: Internal properties
 
-    var onConfigured: (() -> Void)?
+    var onConfiguredWithURLComponents: ((URLComponents) -> Void)?
+    var onConfiguredWithURLRequest: ((URLRequest) -> Void)?
     var customDataTask: URLSessionDataTask?
 
     // MARK: Private properties
@@ -46,10 +47,10 @@ public final class RequestBreakpointViewController: UIViewController {
         return label
     }()
 
-    private let urlTextField: UITextField = {
-        let textField = TextField()
+    private let urlTextField: UITextView = {
+        let textField = TextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "URL"
+        textField.isUserInteractionEnabled = false
         return textField
     }()
 
@@ -61,10 +62,9 @@ public final class RequestBreakpointViewController: UIViewController {
         return label
     }()
 
-    private let queryParametersTextField: UITextField = {
-        let textField = TextField()
+    private let queryParametersTextField: UITextView = {
+        let textField = TextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Query parameters"
         return textField
     }()
 
@@ -76,10 +76,9 @@ public final class RequestBreakpointViewController: UIViewController {
         return label
     }()
 
-    private let headersTextField: UITextField = {
-        let textField = TextField()
+    private let headersTextField: UITextView = {
+        let textField = TextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Headers"
         return textField
     }()
 
@@ -91,11 +90,18 @@ public final class RequestBreakpointViewController: UIViewController {
         return label
     }()
 
-    private let bodyTextField: UITextField = {
-        let textField = TextField()
+    private let bodyTextField: UITextView = {
+        let textField = TextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Body"
         return textField
+    }()
+
+    private let sendButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Send", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        return button
     }()
 
     // MARK: Lifecycle
@@ -116,6 +122,35 @@ public final class RequestBreakpointViewController: UIViewController {
     }
 
     // MARK: Private methods
+
+    @objc private func closeButtonTapped() { self.dismiss(animated: true) }
+
+    @objc private func sendButtonTapped() {
+        let url = urlTextField.text
+        let query = parseQueryString(queryParametersTextField.text)
+
+        var components = URLComponents(string: url!)!
+        components.queryItems = query
+
+        onConfiguredWithURLComponents?(components)
+        self.dismiss(animated: true)
+    }
+
+    func parseQueryString(_ queryString: String) -> [URLQueryItem] {
+        var queries: [URLQueryItem] = []
+        let components = queryString.components(separatedBy: "\n")
+
+        for component in components {
+            let keyValuePair = component.components(separatedBy: "=")
+            if keyValuePair.count == 2 {
+                let key = keyValuePair[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                let value = keyValuePair[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                queries.append(URLQueryItem(name: key, value: value))
+            }
+        }
+
+        return queries
+    }
 
     func setupScrollView(){
         view.backgroundColor = .systemBackground
@@ -156,7 +191,8 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: urlTextField, attribute: .leading, relatedBy: .equal, toItem: urlLabel, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: urlTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
             NSLayoutConstraint(item: urlTextField, attribute: .top, relatedBy: .equal, toItem: urlLabel, attribute: .bottom, multiplier: 1, constant: 4),
-            NSLayoutConstraint(item: urlTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16)
+            NSLayoutConstraint(item: urlTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: urlTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 32)
         ])
 
         // Query parameters
@@ -172,7 +208,8 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: queryParametersTextField, attribute: .leading, relatedBy: .equal, toItem: queryParametersLabel, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: queryParametersTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
             NSLayoutConstraint(item: queryParametersTextField, attribute: .top, relatedBy: .equal, toItem: queryParametersLabel, attribute: .bottom, multiplier: 1, constant: 4),
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16)
+            NSLayoutConstraint(item: queryParametersTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: queryParametersTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 96)
         ])
 
         // Headers
@@ -188,7 +225,8 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: headersTextField, attribute: .leading, relatedBy: .equal, toItem: headersLabel, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: headersTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
             NSLayoutConstraint(item: headersTextField, attribute: .top, relatedBy: .equal, toItem: headersLabel, attribute: .bottom, multiplier: 1, constant: 4),
-            NSLayoutConstraint(item: headersTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16)
+            NSLayoutConstraint(item: headersTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: headersTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 96)
         ])
 
         // Body
@@ -205,11 +243,17 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: bodyTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
             NSLayoutConstraint(item: bodyTextField, attribute: .top, relatedBy: .equal, toItem: bodyLabel, attribute: .bottom, multiplier: 1, constant: 4),
             NSLayoutConstraint(item: bodyTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
-            NSLayoutConstraint(item: bodyTextField, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -16)
+            NSLayoutConstraint(item: bodyTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 320),
+            NSLayoutConstraint(item: bodyTextField, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -16),
         ])
-    }
 
-    @objc private func closeButtonTapped() { self.dismiss(animated: true) }
+        contentView.addSubview(sendButton)
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: sendButton, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: sendButton, attribute: .centerY, relatedBy: .equal, toItem: closeButton, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
+        sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+    }
 
     private func convertDictionaryToString(_ dictionary: [String: String]?) -> String {
         guard let dictionary else { return "" }
