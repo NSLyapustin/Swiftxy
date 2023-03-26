@@ -55,15 +55,35 @@ public class ProxiedURLSession {
             return session.dataTask(with: url, completionHandler: completionHandler)
         }
 
+        let group = DispatchGroup()
+        var dataTask: URLSessionDataTask?
 
         // Check if url matches template
         for template in templates {
             if URL.compareURL(url.absoluteString, with: template) {
-                print(url)
+                let requestBreakpointViewController = RequestBreakpointModuleBuilder(
+                    displayData: .init(
+                        url: url.host,
+                        queryParameters: convertStringToDictionary(url.query),
+                        headers: nil,
+                        body: nil
+                    )
+                ).build()
+                requestBreakpointViewController.onConfigured = { [weak requestBreakpointViewController] in
+                    guard let customDataTask = requestBreakpointViewController?.customDataTask else {
+                        group.leave()
+                        return
+                    }
+                    dataTask = customDataTask
+                    group.leave()
+                }
+                UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)
+                group.enter()
             }
         }
 
-        return session.dataTask(with: url, completionHandler: completionHandler)
+        group.wait()
+        return dataTask ?? session.dataTask(with: url, completionHandler: completionHandler)
     }
 
     public func addTemplate(_ template: String) {
@@ -74,5 +94,21 @@ public class ProxiedURLSession {
         } else {
             userDefaults.set([template], forKey: LibraryKeys.proxiedTemplatesKey)
         }
+    }
+
+    private func convertStringToDictionary(_ inputString: String?) -> [String: String]? {
+        guard let inputString, inputString != "" else { return nil }
+
+        var dictionary = [String: String]()
+        let keyValuePairs = inputString.components(separatedBy: "&")
+        for pair in keyValuePairs {
+            let keyValuePair = pair.components(separatedBy: "=")
+            if keyValuePair.count == 2 {
+                let key = keyValuePair[0]
+                let value = keyValuePair[1]
+                dictionary[key] = value
+            }
+        }
+        return dictionary
     }
 }

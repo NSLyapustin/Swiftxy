@@ -13,9 +13,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         becomeFirstResponder()
+    }
 
-        print(1)
-
+    @IBAction func buttonDidTapped(_ sender: Any) {
         var components = URLComponents(string: "http://api.weatherapi.com/v1/current.json")!
         components.queryItems = [
             URLQueryItem(name: "key", value: "5b4dfd35ac534755878113939232801"),
@@ -35,7 +35,7 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            self.present(RequestBreakpointModuleBuilder().build(), animated: true)
+            self.present(TemplatesListModuleBuilder().build(), animated: true)
         }
     }
 }

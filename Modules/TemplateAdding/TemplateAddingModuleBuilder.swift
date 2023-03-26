@@ -16,12 +16,10 @@ final class TemplateAddingModuleBuilder {
     // MARK: Private properties
 
     private let output: TemplateAddingModuleOutput
-    private let displayData: RequestBreakpointViewController.DisplayData
 
     // MARK: Lifecycle
 
-    init(displayData: RequestDisplayData, output: TemplateAddingModuleOutput) {
-        self.displayData = displayData
+    init(displayData: RequestDisplayData? = nil, output: TemplateAddingModuleOutput) {
         self.output = output
     }
 

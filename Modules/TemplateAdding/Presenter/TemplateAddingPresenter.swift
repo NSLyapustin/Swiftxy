@@ -17,7 +17,6 @@ final class TemplateAddingPresenter {
 
     private weak var output: TemplateAddingModuleOutput?
     private let localStorage = CoreDataStorage()
-    private let displayData: RequestBreakpointViewController.DisplayData
 
     // MARK: Lifecycle
 

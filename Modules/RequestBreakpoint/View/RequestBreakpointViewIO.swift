@@ -7,6 +7,10 @@
 
 import Foundation
 
-protocol RequestBreakpointViewInput: AnyObject {}
+protocol RequestBreakpointViewInput: AnyObject {
+    func set(displayData: RequestBreakpointViewController.DisplayData)
+}
 
-protocol RequestBreakpointViewOutput: AnyObject {}
+protocol RequestBreakpointViewOutput: AnyObject {
+    func viewDidLoad()
+}
