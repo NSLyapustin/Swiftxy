@@ -17,34 +17,45 @@ public class ProxiedURLSession {
 
     // MARK: Public methods
 
-    open func dataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-
-        // Getting all proxied templates
-//        guard let templates = userDefaults.array(forKey: LibraryKeys.proxiedTemplatesKey) as? [String] else {
-//            return session.dataTask(with: request, completionHandler: completionHandler)
-//        }
+    open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
 
         guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
               let templates = optionalTemplates
         else {
-            return session.dataTask(with: request, completionHandler: completionHandler)
+            completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
+            return
         }
 
-        // Getting url in string format
-        guard let urlString = request.url?.absoluteString else {
-            return session.dataTask(with: request, completionHandler: completionHandler)
+        guard let url = request.url else {
+            completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
+            return
         }
+
+        var templateFounded = false
 
         // Check if url matches template
         for template in templates {
-            if URL.compareURL(urlString, with: template) {
-                print(request.url)
-                print(request.httpBody)
-                print(request.httpMethod)
+            if URL.compareURL(url.absoluteString, with: template) {
+                templateFounded = true
+                let requestBreakpointViewController = RequestBreakpointModuleBuilder(
+                    displayData: .init(
+                        url: url.scheme! + "://" + url.host! + url.path,
+                        queryParameters: convertStringToDictionary(url.query),
+                        headers: request.allHTTPHeaderFields,
+                        body: String(data: request.httpBody!, encoding: .utf8),
+                        forUrlComponents: false
+                    )
+                ).build()
+                requestBreakpointViewController.onConfiguredWithURLRequest = { configuredRequest in
+                    completionDataTask(URLSession.shared.dataTask(with: configuredRequest, completionHandler: completionHandler))
+                }
+                UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)
             }
         }
 
-        return session.dataTask(with: request, completionHandler: completionHandler)
+        if !templateFounded {
+            completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
+        }
     }
 
     open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
@@ -67,10 +78,11 @@ public class ProxiedURLSession {
                         url: url.scheme! + "://" + url.host! + url.path,
                         queryParameters: convertStringToDictionary(url.query),
                         headers: nil,
-                        body: nil
+                        body: nil,
+                        forUrlComponents: true
                     )
                 ).build()
-                requestBreakpointViewController.onConfiguredWithURLComponents = { [weak requestBreakpointViewController] configuredComponents in
+                requestBreakpointViewController.onConfiguredWithURLComponents = { configuredComponents in
                     completionDataTask(URLSession.shared.dataTask(with: configuredComponents.url!, completionHandler: completionHandler))
                 }
                 UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)

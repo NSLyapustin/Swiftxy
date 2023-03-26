@@ -16,6 +16,7 @@ public final class RequestBreakpointViewController: UIViewController {
         let queryParameters: [String: String]?
         let headers: [String: String]?
         let body: String?
+        let forUrlComponents: Bool
     }
 
     // MARK: Internal properties
@@ -270,7 +271,15 @@ extension RequestBreakpointViewController: RequestBreakpointViewInput {
     func set(displayData: DisplayData) {
         urlTextField.text = displayData.url
         queryParametersTextField.text = convertDictionaryToString(displayData.queryParameters)
-        bodyTextField.text = displayData.body
-        headersTextField.text = convertDictionaryToString(displayData.headers)
+
+        if displayData.forUrlComponents {
+            bodyLabel.isHidden = true
+            bodyTextField.isHidden = true
+            headersTextField.isHidden = true
+            headersLabel.isHidden = true
+        } else {
+            bodyTextField.text = displayData.body
+            headersTextField.text = convertDictionaryToString(displayData.headers)
+        }
     }
 }
