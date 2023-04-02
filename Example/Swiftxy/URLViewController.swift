@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  URLViewController.swift
 //  Swiftxy
 //
 //  Created by n.lyapustin on 07.02.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import Swiftxy
 
-class ViewController: UIViewController {
+class URLViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +24,7 @@ class ViewController: UIViewController {
             URLQueryItem(name: "q", value: "Paris")
         ]
 
-        var text = ""
-
-        let task = URLSession.proxied.dataTask(with: components.url!) { [weak self] (data, response, error) in
-            guard let httpReponse = response as? HTTPURLResponse else { return }
+        URLSession.proxied.dataTask(with: components.url!) { [weak self] (data, response, error) in
             guard let weather = String(data: data!, encoding: .utf8) else { return }
             DispatchQueue.main.async {
                 self?.dataLabel.text = weather
@@ -37,9 +34,14 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func clearButtonTapped(_ sender: Any) {
+        dataLabel.text = ""
+    }
+
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            self.present(TemplatesListModuleBuilder().build(), animated: true)
+//            self.present(TemplatesListModuleBuilder().build(), animated: true)
+            self.present(ResponseBreakpointViewController(displayData: ResponseBreakpointViewController.DisplayData()), animated: true)
         }
     }
 }

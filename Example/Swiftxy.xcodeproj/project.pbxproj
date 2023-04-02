@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACD81AFB9204008FA782 /* URLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* URLViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		630B598329D9CF2200962A9F /* RequestExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630B598229D9CF2200962A9F /* RequestExample.swift */; };
+		63A7804929D9CC9700B29CFC /* URLRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A7804829D9CC9700B29CFC /* URLRequestViewController.swift */; };
 		AF0D206A1AD1A57BB48BF1B7 /* Pods_Swiftxy_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A22A1F79A6B8B78CFF3499F0 /* Pods_Swiftxy_Tests.framework */; };
 		DA9BFD40352FBE7C999AF9A7 /* Pods_Swiftxy_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5224E14FFC5ADA4DD0386AEF /* Pods_Swiftxy_Example.framework */; };
 /* End PBXBuildFile section */
@@ -36,7 +38,7 @@
 		607FACD01AFB9204008FA782 /* Swiftxy_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swiftxy_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* URLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLViewController.swift; sourceTree = "<group>"; };
 		607FACDA1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		62DEEAF0710C3744D3D71960 /* Pods-Swiftxy_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swiftxy_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Swiftxy_Tests/Pods-Swiftxy_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		630B598229D9CF2200962A9F /* RequestExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExample.swift; sourceTree = "<group>"; };
+		63A7804829D9CC9700B29CFC /* URLRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestViewController.swift; sourceTree = "<group>"; };
 		7351CA8B595C94C9C2FE180B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		9D07C824A7D04AA510332E02 /* Swiftxy.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Swiftxy.podspec; path = ../Swiftxy.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A22A1F79A6B8B78CFF3499F0 /* Pods_Swiftxy_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swiftxy_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,8 +97,9 @@
 		607FACD21AFB9204008FA782 /* Example for Swiftxy */ = {
 			isa = PBXGroup;
 			children = (
+				630B598129D9CF1700962A9F /* Models */,
+				630B598029D9CF0800962A9F /* ViewControllers */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -137,6 +142,23 @@
 				1F4EA635E18CE4E067AC1B56 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		630B598029D9CF0800962A9F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				607FACD71AFB9204008FA782 /* URLViewController.swift */,
+				63A7804829D9CC9700B29CFC /* URLRequestViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		630B598129D9CF1700962A9F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				630B598229D9CF2200962A9F /* RequestExample.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		87B5AE7D3282AADC714EE5A5 /* Pods */ = {
@@ -331,8 +353,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				630B598329D9CF2200962A9F /* RequestExample.swift in Sources */,
+				607FACD81AFB9204008FA782 /* URLViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				63A7804929D9CC9700B29CFC /* URLRequestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

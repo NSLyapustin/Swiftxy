@@ -1,16 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sBM-ss-gnB">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Item 2-->
+        <scene sceneID="Fyj-nF-8CH">
+            <objects>
+                <viewController id="egh-30-Ufp" customClass="URLRequestViewController" customModule="Swiftxy_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tW0-6F-6HW"/>
+                        <viewControllerLayoutGuide type="bottom" id="Neg-2d-EuV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pu5-rb-80W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4n-mi-J4t">
+                                <rect key="frame" x="155.5" y="88" width="64" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Clear"/>
+                                <connections>
+                                    <action selector="clearButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="cDE-os-yEq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-vg-Nkq">
+                                <rect key="frame" x="69" y="138" width="237" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send request (URLRequest)"/>
+                                <connections>
+                                    <action selector="sendRequestButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="PJx-aV-DdI"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeholder" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfK-Jn-Rjs">
+                                <rect key="frame" x="32" y="196" width="311" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="K5y-vg-Nkq" firstAttribute="top" secondItem="e4n-mi-J4t" secondAttribute="bottom" constant="15" id="6TY-9k-q7T"/>
+                            <constraint firstItem="e4n-mi-J4t" firstAttribute="centerX" secondItem="pu5-rb-80W" secondAttribute="centerX" id="PFa-lL-zD2"/>
+                            <constraint firstItem="qfK-Jn-Rjs" firstAttribute="leading" secondItem="pu5-rb-80W" secondAttribute="leadingMargin" constant="16" id="Vo0-z2-9uC"/>
+                            <constraint firstItem="e4n-mi-J4t" firstAttribute="top" secondItem="tW0-6F-6HW" secondAttribute="bottom" constant="88" id="WvU-cl-jjF"/>
+                            <constraint firstItem="qfK-Jn-Rjs" firstAttribute="top" secondItem="K5y-vg-Nkq" secondAttribute="bottom" constant="23" id="hRC-P8-gYn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qfK-Jn-Rjs" secondAttribute="trailing" constant="16" id="qbh-r0-JJk"/>
+                            <constraint firstItem="K5y-vg-Nkq" firstAttribute="centerX" secondItem="pu5-rb-80W" secondAttribute="centerX" id="tQD-ov-ZVt"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="RJS-uu-sIA"/>
+                    <connections>
+                        <outlet property="dataLabel" destination="qfK-Jn-Rjs" id="RRU-y3-rc9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aZ-2G-St2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-684" y="602"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="hAT-K3-bi6">
+            <objects>
+                <tabBarController id="sBM-ss-gnB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="BIU-Uk-wr8"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="c2x-vM-jl4">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="egh-30-Ufp" kind="relationship" relationship="viewControllers" id="BiQ-Za-ovQ"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="vKY-dF-cjV"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DaY-5W-Oyo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1583" y="293"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="Swiftxy_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="URLViewController" customModule="Swiftxy_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -20,36 +95,52 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-NX-vd9">
-                                <rect key="frame" x="156.5" y="116" width="62" height="35"/>
+                                <rect key="frame" x="100.5" y="138" width="174" height="35"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Paris"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send request (URL)"/>
                                 <connections>
                                     <action selector="buttonDidTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DaF-o0-mdI"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVG-PC-Sge">
-                                <rect key="frame" x="32" y="174" width="311" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeholder" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVG-PC-Sge">
+                                <rect key="frame" x="32" y="196" width="311" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SS1-iY-qOU">
+                                <rect key="frame" x="155.5" y="88" width="64" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Clear"/>
+                                <connections>
+                                    <action selector="clearButtonTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="KUt-ZA-gVW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="sVG-PC-Sge" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="16" id="Dog-pm-oN5"/>
+                            <constraint firstItem="SS1-iY-qOU" firstAttribute="centerX" secondItem="tDA-NX-vd9" secondAttribute="centerX" id="KRh-Xf-1nQ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sVG-PC-Sge" secondAttribute="trailing" constant="16" id="P07-di-GVa"/>
-                            <constraint firstItem="tDA-NX-vd9" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="-200" id="Xdp-Ho-Uaw"/>
+                            <constraint firstItem="SS1-iY-qOU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="88" id="X06-0z-0W1"/>
                             <constraint firstItem="tDA-NX-vd9" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="ZHe-o7-LaA"/>
                             <constraint firstItem="sVG-PC-Sge" firstAttribute="top" secondItem="tDA-NX-vd9" secondAttribute="bottom" constant="23" id="xbX-ff-bgu"/>
+                            <constraint firstItem="tDA-NX-vd9" firstAttribute="top" secondItem="SS1-iY-qOU" secondAttribute="bottom" constant="15" id="yYv-g9-nW6"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="Uvx-nW-i5X"/>
                     <connections>
                         <outlet property="dataLabel" destination="sVG-PC-Sge" id="Pm9-Ma-jCY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="-2"/>
+            <point key="canvasLocation" x="-684" y="-63"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -1,43 +1,32 @@
 //
-//  RequestBreakpointViewController.swift
+//  ResponseBreakpointViewController.swift
 //  Swiftxy
 //
-//  Created by n.lyapustin on 18.03.2023.
+//  Created by n.lyapustin on 02.04.2023.
 //
 
 import Foundation
 
-public final class RequestBreakpointViewController: UIViewController {
+final public class ResponseBreakpointViewController: UIViewController {
 
-    // MARK: Nested Types
+    // MARK: Nested types
 
     public struct DisplayData {
-        let url: String?
-        let queryParameters: [String: String]?
-        let headers: [String: String]?
-        let body: String?
-        let forUrlComponents: Bool
+
+        public init() {}
+
     }
 
-    // MARK: Internal properties
-
-    var onConfiguredWithURLComponents: ((URLComponents) -> Void)?
-    var onConfiguredWithURLRequest: ((URLRequest) -> Void)?
-    var customDataTask: URLSessionDataTask?
-    var isForUrlComponents = false
-
     // MARK: Private properties
-
-    private let output: RequestBreakpointViewOutput
 
     private let contentView = UIView()
     private let scrollView = UIScrollView()
 
-    private let requestLabel: UILabel = {
+    private let responseLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
-        label.text = "Request"
+        label.text = "Response"
         return label
     }()
 
@@ -64,15 +53,15 @@ public final class RequestBreakpointViewController: UIViewController {
         return textField
     }()
 
-    private let queryParametersLabel: UILabel = {
+    private let statusCodeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
-        label.text = "Query parameters"
+        label.text = "Status Code"
         return label
     }()
 
-    private let queryParametersTextField: UITextView = {
+    private let statusCodeTextField: UITextView = {
         let textField = TextView()
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -116,8 +105,7 @@ public final class RequestBreakpointViewController: UIViewController {
 
     // MARK: Lifecycle
 
-    init(output: RequestBreakpointViewOutput) {
-        self.output = output
+    public init(displayData: DisplayData) {
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -128,81 +116,6 @@ public final class RequestBreakpointViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
-        output.viewDidLoad()
-    }
-
-    // MARK: Private methods
-
-    @objc private func closeButtonTapped() { self.dismiss(animated: true) }
-
-    @objc private func sendButtonTapped() {
-        if isForUrlComponents {
-            processUrlComponents()
-        } else {
-            processUrlRequest()
-        }
-    }
-
-    private func processUrlComponents() {
-        let url = urlTextField.text
-        let query = parseQueryString(queryParametersTextField.text)
-
-        var components = URLComponents(string: url!)!
-        components.queryItems = query
-
-        onConfiguredWithURLComponents?(components)
-        self.dismiss(animated: true)
-    }
-
-    private func processUrlRequest() {
-        let url = urlTextField.text ?? ""
-        let query = parseQueryString(queryParametersTextField.text)
-        let data = bodyTextField.text.data(using: .utf8)
-        let headers = parseStringToDict(headersTextField.text)
-
-        var components = URLComponents(string: url)
-        components?.queryItems = query
-
-        var request = URLRequest(url: components!.url!)
-        request.httpBody = data
-        request.httpMethod = "POST"
-        headers?.forEach({ (key: String, value: String) in
-            request.addValue(value, forHTTPHeaderField: key)
-        })
-        onConfiguredWithURLRequest?(request)
-        self.dismiss(animated: true)
-    }
-
-    func parseQueryString(_ queryString: String) -> [URLQueryItem] {
-        var queries: [URLQueryItem] = []
-        let components = queryString.components(separatedBy: "\n")
-
-        for component in components {
-            let keyValuePair = component.components(separatedBy: "=")
-            if keyValuePair.count == 2 {
-                let key = keyValuePair[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                let value = keyValuePair[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                queries.append(URLQueryItem(name: key, value: value))
-            }
-        }
-
-        return queries
-    }
-
-    func parseStringToDict(_ string: String) -> [String: String]? {
-        var result: [String: String] = [:]
-        let components = string.components(separatedBy: "\n")
-
-        for component in components {
-            let keyValuePair = component.components(separatedBy: "=")
-            if keyValuePair.count == 2 {
-                let key = keyValuePair[0].trimmingCharacters(in: .whitespacesAndNewlines)
-                let value = keyValuePair[1].trimmingCharacters(in: .whitespacesAndNewlines)
-                result[key] = value
-            }
-        }
-
-        return result
     }
 
     func setupScrollView(){
@@ -250,26 +163,26 @@ public final class RequestBreakpointViewController: UIViewController {
 
         // Query parameters
 
-        contentView.addSubview(queryParametersLabel)
+        contentView.addSubview(statusCodeLabel)
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: queryParametersLabel, attribute: .top, relatedBy: .equal, toItem: urlTextField, attribute: .bottom, multiplier: 1, constant: 16),
-            NSLayoutConstraint(item: queryParametersLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 16)
+            NSLayoutConstraint(item: statusCodeLabel, attribute: .top, relatedBy: .equal, toItem: urlTextField, attribute: .bottom, multiplier: 1, constant: 16),
+            NSLayoutConstraint(item: statusCodeLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 16)
         ])
 
-        contentView.addSubview(queryParametersTextField)
+        contentView.addSubview(statusCodeTextField)
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .leading, relatedBy: .equal, toItem: queryParametersLabel, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .top, relatedBy: .equal, toItem: queryParametersLabel, attribute: .bottom, multiplier: 1, constant: 4),
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
-            NSLayoutConstraint(item: queryParametersTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 96)
+            NSLayoutConstraint(item: statusCodeTextField, attribute: .leading, relatedBy: .equal, toItem: statusCodeLabel, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: statusCodeTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: statusCodeTextField, attribute: .top, relatedBy: .equal, toItem: statusCodeLabel, attribute: .bottom, multiplier: 1, constant: 4),
+            NSLayoutConstraint(item: statusCodeTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: statusCodeTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 96)
         ])
 
         // Headers
 
         contentView.addSubview(headersLabel)
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: headersLabel, attribute: .top, relatedBy: .equal, toItem: queryParametersTextField, attribute: .bottom, multiplier: 1, constant: 16),
+            NSLayoutConstraint(item: headersLabel, attribute: .top, relatedBy: .equal, toItem: statusCodeTextField, attribute: .bottom, multiplier: 1, constant: 16),
             NSLayoutConstraint(item: headersLabel, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 16)
         ])
 
@@ -309,38 +222,16 @@ public final class RequestBreakpointViewController: UIViewController {
 
         // Title
 
-        contentView.addSubview(requestLabel)
+        contentView.addSubview(responseLabel)
         NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: requestLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: requestLabel, attribute: .centerY, relatedBy: .equal, toItem: closeButton, attribute: .centerY, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: responseLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: responseLabel, attribute: .centerY, relatedBy: .equal, toItem: closeButton, attribute: .centerY, multiplier: 1, constant: 0)
         ])
     }
 
-    private func convertDictionaryToString(_ dictionary: [String: String]?) -> String {
-        guard let dictionary else { return "" }
+    @objc private func closeButtonTapped() { self.dismiss(animated: true) }
 
-        var string = ""
-        for (key, value) in dictionary {
-            string += "\(key) = \(value)\n"
-        }
-        return string
-    }
-}
+    @objc private func sendButtonTapped() {
 
-extension RequestBreakpointViewController: RequestBreakpointViewInput {
-    func set(displayData: DisplayData) {
-        urlTextField.text = displayData.url
-        queryParametersTextField.text = convertDictionaryToString(displayData.queryParameters)
-        isForUrlComponents = displayData.forUrlComponents
-
-        if displayData.forUrlComponents {
-            bodyLabel.isHidden = true
-            bodyTextField.isHidden = true
-            headersTextField.isHidden = true
-            headersLabel.isHidden = true
-        } else {
-            bodyTextField.text = displayData.body
-            headersTextField.text = convertDictionaryToString(displayData.headers)
-        }
     }
 }
