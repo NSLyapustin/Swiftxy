@@ -12,15 +12,20 @@ final public class ResponseBreakpointViewController: UIViewController {
     // MARK: Nested types
 
     public struct DisplayData {
-
-        public init() {}
-
+        let url: String
+        let statusCode: Int
+        let headers: [String: String]
+        let body: String
+        let completionHandler: (Data?, URLResponse?, Error?) -> Void
     }
+
+    private let output: RequestBreakpointViewController
 
     // MARK: Private properties
 
     private let contentView = UIView()
     private let scrollView = UIScrollView()
+    private var displayData: DisplayData
 
     private let responseLabel: UILabel = {
         let label = UILabel()
@@ -105,7 +110,9 @@ final public class ResponseBreakpointViewController: UIViewController {
 
     // MARK: Lifecycle
 
-    public init(displayData: DisplayData) {
+    public init(displayData: DisplayData, output: RequestBreakpointViewController) {
+        self.displayData = displayData
+        self.output = output
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -116,6 +123,53 @@ final public class ResponseBreakpointViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         setupScrollView()
+        setupData(displayData: displayData)
+    }
+
+    func setupData(displayData: DisplayData) {
+        urlTextField.text = displayData.url
+        statusCodeTextField.text = String(displayData.statusCode)
+        headersTextField.text = convertDictionaryToString(displayData.headers)
+        bodyTextField.text = displayData.body
+    }
+
+    private func convertDictionaryToString(_ dictionary: [String: String]?) -> String {
+        guard let dictionary else { return "" }
+
+        var string = ""
+        for (key, value) in dictionary {
+            string += "\(key) = \(value)\n"
+        }
+        return string
+    }
+
+    private func parseStringToDict(_ string: String) -> [String: String]? {
+        var result: [String: String] = [:]
+        let components = string.components(separatedBy: "\n")
+
+        for component in components {
+            let keyValuePair = component.components(separatedBy: "=")
+            if keyValuePair.count == 2 {
+                let key = keyValuePair[0].trimmingCharacters(in: .whitespacesAndNewlines)
+                let value = keyValuePair[1].trimmingCharacters(in: .whitespacesAndNewlines)
+                result[key] = value
+            }
+        }
+
+        return result
+    }
+
+    private func processResult() {
+        let statusCode = Int(statusCodeTextField.text)
+        let data = bodyTextField.text.data(using: .utf8)
+        let headers = parseStringToDict(headersTextField.text)
+        let url = urlTextField.text
+
+        let response = HTTPURLResponse(url: URL(string: url!)!, statusCode: statusCode!, httpVersion: "HTTP/1.1", headerFields: headers)
+
+        displayData.completionHandler(data, response, nil)
+        self.dismiss(animated: true)
+        output.dismiss(animated: true)
     }
 
     func setupScrollView(){
@@ -232,6 +286,6 @@ final public class ResponseBreakpointViewController: UIViewController {
     @objc private func closeButtonTapped() { self.dismiss(animated: true) }
 
     @objc private func sendButtonTapped() {
-
+        processResult()
     }
 }

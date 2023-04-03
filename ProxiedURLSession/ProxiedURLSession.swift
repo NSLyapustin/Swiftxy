@@ -46,8 +46,27 @@ public class ProxiedURLSession {
                         forUrlComponents: false
                     )
                 ).build()
-                requestBreakpointViewController.onConfiguredWithURLRequest = { configuredRequest in
-                    completionDataTask(URLSession.shared.dataTask(with: configuredRequest, completionHandler: completionHandler))
+                requestBreakpointViewController.onConfiguredWithURLRequest = { configuredRequest, toResponse in
+                    if toResponse {
+                        completionDataTask(URLSession.shared.dataTask(with: configuredRequest, completionHandler: { data, response, error in
+                            DispatchQueue.main.async {
+                                requestBreakpointViewController.present(
+                                    ResponseBreakpointViewController(
+                                        displayData: ResponseBreakpointViewController.DisplayData(
+                                            url: configuredRequest.url!.absoluteString,
+                                            statusCode: 200,
+                                            headers: self.convertAnyHasableAnyToDictionaryOfStrings(inputDict: (response as! HTTPURLResponse).allHeaderFields),
+                                            body: String(data: data!, encoding: .utf8) ?? "",
+                                            completionHandler: completionHandler
+                                        ),
+                                        output: requestBreakpointViewController),
+                                    animated: true
+                                )
+                            }
+                        }))
+                    } else {
+                        completionDataTask(URLSession.shared.dataTask(with: configuredRequest, completionHandler: completionHandler))
+                    }
                 }
                 UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)
             }
@@ -82,8 +101,28 @@ public class ProxiedURLSession {
                         forUrlComponents: true
                     )
                 ).build()
-                requestBreakpointViewController.onConfiguredWithURLComponents = { configuredComponents in
-                    completionDataTask(URLSession.shared.dataTask(with: configuredComponents.url!, completionHandler: completionHandler))
+                requestBreakpointViewController.onConfiguredWithURLComponents = { configuredComponents, toResponse in
+                    if toResponse {
+                        completionDataTask(URLSession.shared.dataTask(with: configuredComponents.url!, completionHandler: { data, response, error in
+                            DispatchQueue.main.async {
+                                requestBreakpointViewController.present(
+                                    ResponseBreakpointViewController(
+                                        displayData: ResponseBreakpointViewController.DisplayData(
+                                            url: configuredComponents.url!.absoluteString,
+                                            statusCode: (response as! HTTPURLResponse).statusCode,
+                                            headers: self.convertAnyHasableAnyToDictionaryOfStrings(inputDict: (response as! HTTPURLResponse).allHeaderFields),
+                                            body: String(data: data!, encoding: .utf8) ?? "",
+                                            completionHandler: completionHandler
+                                        ),
+                                        output: requestBreakpointViewController
+                                    ),
+                                    animated: true
+                                )
+                            }
+                        }))
+                    } else {
+                        completionDataTask(URLSession.shared.dataTask(with: configuredComponents.url!, completionHandler: completionHandler))
+                    }
                 }
                 UIApplication.shared.keyWindow?.rootViewController?.present(requestBreakpointViewController, animated: true)
             }
@@ -118,5 +157,17 @@ public class ProxiedURLSession {
             }
         }
         return dictionary
+    }
+
+    func convertAnyHasableAnyToDictionaryOfStrings(inputDict: [AnyHashable: Any]) -> [String: String] {
+        var outputDict = [String: String]()
+
+        for (key, value) in inputDict {
+            if let stringKey = key as? String {
+                outputDict[stringKey] = String(describing: value)
+            }
+        }
+
+        return outputDict
     }
 }

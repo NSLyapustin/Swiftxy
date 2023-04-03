@@ -40,8 +40,8 @@ class URLViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-//            self.present(TemplatesListModuleBuilder().build(), animated: true)
-            self.present(ResponseBreakpointViewController(displayData: ResponseBreakpointViewController.DisplayData()), animated: true)
+            self.present(TemplatesListModuleBuilder().build(), animated: true)
+//            self.present(ResponseBreakpointViewController(displayData: ResponseBreakpointViewController.DisplayData()), animated: true)
         }
     }
 }

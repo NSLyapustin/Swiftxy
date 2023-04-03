@@ -21,8 +21,8 @@ public final class RequestBreakpointViewController: UIViewController {
 
     // MARK: Internal properties
 
-    var onConfiguredWithURLComponents: ((URLComponents) -> Void)?
-    var onConfiguredWithURLRequest: ((URLRequest) -> Void)?
+    var onConfiguredWithURLComponents: ((URLComponents, Bool) -> Void)?
+    var onConfiguredWithURLRequest: ((URLRequest, Bool) -> Void)?
     var customDataTask: URLSessionDataTask?
     var isForUrlComponents = false
 
@@ -114,6 +114,14 @@ public final class RequestBreakpointViewController: UIViewController {
         return button
     }()
 
+    private let toResponseButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("To response", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        return button
+    }()
+
     // MARK: Lifecycle
 
     init(output: RequestBreakpointViewOutput) {
@@ -143,6 +151,14 @@ public final class RequestBreakpointViewController: UIViewController {
         }
     }
 
+    @objc private func toResponseButtonTapped() {
+        if isForUrlComponents {
+            processUrlComponentsForResponse()
+        } else {
+            processUrlRequestForResponse()
+        }
+    }
+
     private func processUrlComponents() {
         let url = urlTextField.text
         let query = parseQueryString(queryParametersTextField.text)
@@ -150,8 +166,18 @@ public final class RequestBreakpointViewController: UIViewController {
         var components = URLComponents(string: url!)!
         components.queryItems = query
 
-        onConfiguredWithURLComponents?(components)
+        onConfiguredWithURLComponents?(components, false)
         self.dismiss(animated: true)
+    }
+
+    private func processUrlComponentsForResponse() {
+        let url = urlTextField.text
+        let query = parseQueryString(queryParametersTextField.text)
+
+        var components = URLComponents(string: url!)!
+        components.queryItems = query
+
+        onConfiguredWithURLComponents?(components, true)
     }
 
     private func processUrlRequest() {
@@ -169,11 +195,29 @@ public final class RequestBreakpointViewController: UIViewController {
         headers?.forEach({ (key: String, value: String) in
             request.addValue(value, forHTTPHeaderField: key)
         })
-        onConfiguredWithURLRequest?(request)
+        onConfiguredWithURLRequest?(request, false)
         self.dismiss(animated: true)
     }
 
-    func parseQueryString(_ queryString: String) -> [URLQueryItem] {
+    private func processUrlRequestForResponse() {
+        let url = urlTextField.text ?? ""
+        let query = parseQueryString(queryParametersTextField.text)
+        let data = bodyTextField.text.data(using: .utf8)
+        let headers = parseStringToDict(headersTextField.text)
+
+        var components = URLComponents(string: url)
+        components?.queryItems = query
+
+        var request = URLRequest(url: components!.url!)
+        request.httpBody = data
+        request.httpMethod = "POST"
+        headers?.forEach({ (key: String, value: String) in
+            request.addValue(value, forHTTPHeaderField: key)
+        })
+        onConfiguredWithURLRequest?(request, true)
+    }
+
+    private func parseQueryString(_ queryString: String) -> [URLQueryItem] {
         var queries: [URLQueryItem] = []
         let components = queryString.components(separatedBy: "\n")
 
@@ -189,7 +233,7 @@ public final class RequestBreakpointViewController: UIViewController {
         return queries
     }
 
-    func parseStringToDict(_ string: String) -> [String: String]? {
+    private func parseStringToDict(_ string: String) -> [String: String]? {
         var result: [String: String] = [:]
         let components = string.components(separatedBy: "\n")
 
@@ -296,8 +340,7 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: bodyTextField, attribute: .trailing, relatedBy: .equal, toItem: urlLabel, attribute: .trailing, multiplier: 1, constant: -16),
             NSLayoutConstraint(item: bodyTextField, attribute: .top, relatedBy: .equal, toItem: bodyLabel, attribute: .bottom, multiplier: 1, constant: 4),
             NSLayoutConstraint(item: bodyTextField, attribute: .trailing, relatedBy: .equal, toItem: contentView, attribute: .trailing, multiplier: 1, constant: -16),
-            NSLayoutConstraint(item: bodyTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 320),
-            NSLayoutConstraint(item: bodyTextField, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -16),
+            NSLayoutConstraint(item: bodyTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 320)
         ])
 
         contentView.addSubview(sendButton)
@@ -314,6 +357,16 @@ public final class RequestBreakpointViewController: UIViewController {
             NSLayoutConstraint(item: requestLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: requestLabel, attribute: .centerY, relatedBy: .equal, toItem: closeButton, attribute: .centerY, multiplier: 1, constant: 0)
         ])
+
+        // To response button
+
+        contentView.addSubview(toResponseButton)
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: toResponseButton, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: toResponseButton, attribute: .top, relatedBy: .equal, toItem: bodyTextField, attribute: .bottom, multiplier: 1, constant: 16),
+            NSLayoutConstraint(item: bodyTextField, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -48)
+        ])
+        toResponseButton.addTarget(self, action: #selector(toResponseButtonTapped), for: .touchUpInside)
     }
 
     private func convertDictionaryToString(_ dictionary: [String: String]?) -> String {
