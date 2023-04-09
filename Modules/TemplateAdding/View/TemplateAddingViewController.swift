@@ -28,6 +28,22 @@ final class TemplateAddingViewController: UIViewController {
         return textField
     }()
 
+    private let bodyRequestTextField: UITextField = {
+        let textField = TextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.contentVerticalAlignment = .top
+        textField.placeholder = "Request body"
+        return textField
+    }()
+
+    private let bodyResponseTextField: UITextField = {
+        let textField = TextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.contentVerticalAlignment = .top
+        textField.placeholder = "Response body"
+        return textField
+    }()
+
     private let closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -107,6 +123,22 @@ final class TemplateAddingViewController: UIViewController {
             NSLayoutConstraint(item: templateTextField, attribute: .trailing, relatedBy: .equal, toItem: nameTextField, attribute: .trailing, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: templateTextField, attribute: .top, relatedBy: .equal, toItem: nameTextField, attribute: .bottom, multiplier: 1, constant: 16),
             NSLayoutConstraint(item: templateTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
+        ])
+
+        view.addSubview(bodyRequestTextField)
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: bodyRequestTextField, attribute: .leading, relatedBy: .equal, toItem: nameTextField, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: bodyRequestTextField, attribute: .trailing, relatedBy: .equal, toItem: nameTextField, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: bodyRequestTextField, attribute: .top, relatedBy: .equal, toItem: templateTextField, attribute: .bottom, multiplier: 1, constant: 16),
+            NSLayoutConstraint(item: bodyRequestTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
+        ])
+
+        view.addSubview(bodyResponseTextField)
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: bodyResponseTextField, attribute: .leading, relatedBy: .equal, toItem: nameTextField, attribute: .leading, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: bodyResponseTextField, attribute: .trailing, relatedBy: .equal, toItem: nameTextField, attribute: .trailing, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: bodyResponseTextField, attribute: .top, relatedBy: .equal, toItem: bodyRequestTextField, attribute: .bottom, multiplier: 1, constant: 16),
+            NSLayoutConstraint(item: bodyResponseTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
         ])
     }
 

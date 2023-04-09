@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="BreakpointRule" representedClassName="BreakpointRuleManagedObject" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="requestBody" optional="YES" attributeType="String"/>
+        <attribute name="responseBody" optional="YES" attributeType="String"/>
         <attribute name="ruleName" optional="YES" attributeType="String"/>
         <attribute name="ruleTemplate" optional="YES" attributeType="String"/>
     </entity>

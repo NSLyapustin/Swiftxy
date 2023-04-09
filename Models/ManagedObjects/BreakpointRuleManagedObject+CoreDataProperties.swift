@@ -19,5 +19,7 @@ extension BreakpointRuleManagedObject {
     @NSManaged public var id: UUID?
     @NSManaged public var ruleName: String
     @NSManaged public var ruleTemplate: String
+    @NSManaged public var requestBody: String?
+    @NSManaged public var responseBody: String?
 
 }
