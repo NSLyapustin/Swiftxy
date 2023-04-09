@@ -17,4 +17,5 @@ protocol TemplatesListViewOutput: AnyObject {
     func viewDidLoad()
     func addButtonTapped()
     func closeButtonTapped()
+    func deleteButtonTapped(at index: Int)
 }

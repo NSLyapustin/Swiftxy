@@ -38,6 +38,10 @@ extension TemplatesListPresenter: TemplatesListViewOutput {
     func closeButtonTapped() {
         view?.close()
     }
+
+    func deleteButtonTapped(at index: Int) {
+        try! localStorage?.delete(at: index)
+    }
 }
 
 extension TemplatesListPresenter: TemplateAddingModuleOutput {

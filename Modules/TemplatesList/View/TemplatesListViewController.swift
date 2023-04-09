@@ -134,4 +134,12 @@ extension TemplatesListViewController: UITableViewDataSource {
         cell.configure(with: breakpoints[indexPath.row])
         return cell
     }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            output.deleteButtonTapped(at: indexPath.row)
+            breakpoints.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }

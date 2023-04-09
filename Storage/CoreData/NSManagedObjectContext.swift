@@ -55,6 +55,7 @@ class CoreDataStorage {
 
     public func fetchBreakpoints() throws -> [BreakpointRule] {
         let fetchRequest = BreakpointRuleManagedObject.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
 
         // Get a reference to a NSManagedObjectContext
         let context = persistentContainer!.viewContext
@@ -63,5 +64,20 @@ class CoreDataStorage {
         let objects = try context.fetch(fetchRequest)
 
         return objects.map { BreakpointRule(name: $0.ruleName, template: $0.ruleTemplate) }
+    }
+
+    public func delete(at index: Int) throws {
+        let fetchRequest = BreakpointRuleManagedObject.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+
+        // Get a reference to a NSManagedObjectContext
+        let context = persistentContainer!.viewContext
+
+        // Fetch all objects of one Entity type
+        let objects = try context.fetch(fetchRequest)
+
+        context.delete(objects[index])
+
+        try context.save()
     }
 }
