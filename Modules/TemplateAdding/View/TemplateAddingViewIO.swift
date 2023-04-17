@@ -12,6 +12,7 @@ protocol TemplateAddingViewInput: AnyObject {
 }
 
 protocol TemplateAddingViewOutput: AnyObject {
-    func saveBreakpoint(name: String, template: String)
+    func saveBreakpoint(breakpoint: BreakpointRule)
+    func updateBreakpoint(breakpoint: BreakpointRule)
     func viewWantsToDismiss()
 }

@@ -18,4 +18,5 @@ protocol TemplatesListViewOutput: AnyObject {
     func addButtonTapped()
     func closeButtonTapped()
     func deleteButtonTapped(at index: Int)
+    func didSelectBreakpoint(at index: Int)
 }

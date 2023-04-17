@@ -28,8 +28,14 @@ final class TemplateAddingPresenter {
 // MARK: TemplateAddingViewOutput
 
 extension TemplateAddingPresenter: TemplateAddingViewOutput {
-    func saveBreakpoint(name: String, template: String) {
-        try! localStorage?.save(BreakpointRule(name: name, template: template))
+    func saveBreakpoint(breakpoint: BreakpointRule) {
+        try! localStorage?.save(breakpoint)
+        view?.dismiss()
+        output?.moduleDidFinish()
+    }
+
+    func updateBreakpoint(breakpoint: BreakpointRule) {
+        try! localStorage?.update(breakpoint)
         view?.dismiss()
         output?.moduleDidFinish()
     }

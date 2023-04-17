@@ -9,7 +9,7 @@ import UIKit
 
 class TemplatesListViewController: UIViewController {
 
-    // MARK: Private properties
+    // MARK: View
 
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -42,7 +42,7 @@ class TemplatesListViewController: UIViewController {
 
     private var breakpoints: [TemplateListTableViewCell.DisplayData] = []
 
-    // MARK: Internal properties
+    // MARK: Properties
 
     private let output: TemplatesListViewOutput
 
@@ -60,7 +60,7 @@ class TemplatesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-//        tableView.delegate = self
+        tableView.delegate = self
         tableView.dataSource = self
         output.viewDidLoad()
     }
@@ -141,5 +141,11 @@ extension TemplatesListViewController: UITableViewDataSource {
             breakpoints.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+}
+
+extension TemplatesListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        output.didSelectBreakpoint(at: indexPath.row)
     }
 }

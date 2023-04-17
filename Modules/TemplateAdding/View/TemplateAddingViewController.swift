@@ -9,6 +9,20 @@ import UIKit
 
 final class TemplateAddingViewController: UIViewController {
 
+    // MARK: Nested types
+
+    struct DisplayData {
+        let id: UUID
+        let name: String
+        let template: String
+        let requestBody: String?
+        let responseBody: String?
+    }
+
+    private let displayData: DisplayData?
+    private var isEditingMode = false
+    private var id: UUID?
+
     // MARK: Private properties
 
     private let output: TemplateAddingViewOutput
@@ -69,8 +83,9 @@ final class TemplateAddingViewController: UIViewController {
 
     // MARK: Lifecycle
 
-    init(output: TemplateAddingViewOutput) {
+    init(displayData: DisplayData?, output: TemplateAddingViewOutput) {
         self.output = output
+        self.displayData = displayData
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -81,10 +96,77 @@ final class TemplateAddingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        setupDisplayData()
     }
 
     // MARK: Private methods
 
+    private func processCreating() {
+        guard let name = nameTextField.text,
+              let template = templateTextField.text,
+              !name.isEmpty, !template.isEmpty
+        else {
+            return
+        }
+
+        let requestBody = bodyRequestTextField.text == "" ? nil : bodyRequestTextField.text
+        let responseBody = bodyResponseTextField.text == "" ? nil : bodyResponseTextField.text
+
+        let breakpointRule = BreakpointRule(id: nil, name: name, template: template, requestBody: requestBody, responseBody: responseBody)
+
+        output.saveBreakpoint(breakpoint: breakpointRule)
+    }
+
+    private func processEditing() {
+        guard let name = nameTextField.text,
+              let template = templateTextField.text,
+              !name.isEmpty, !template.isEmpty
+        else {
+            return
+        }
+
+        let requestBody = bodyRequestTextField.text == "" ? nil : bodyRequestTextField.text
+        let responseBody = bodyResponseTextField.text == "" ? nil : bodyResponseTextField.text
+
+        let breakpointRule = BreakpointRule(id: displayData?.id, name: name, template: template, requestBody: requestBody, responseBody: responseBody)
+
+        output.updateBreakpoint(breakpoint: breakpointRule)
+    }
+
+    @objc private func saveButtonTapped() {
+        if isEditingMode {
+            processEditing()
+        } else {
+            processCreating()
+        }
+    }
+
+    @objc private func closeButtonTapped() { output.viewWantsToDismiss() }
+
+    private func setupDisplayData() {
+        guard let displayData else { return }
+
+        id = displayData.id
+
+        nameTextField.text = displayData.name
+        templateTextField.text = displayData.template
+
+        bodyRequestTextField.text = displayData.requestBody
+        bodyResponseTextField.text = displayData.responseBody
+
+        isEditingMode = true
+    }
+}
+
+// MARK: TemplateAddingViewInput
+
+extension TemplateAddingViewController: TemplateAddingViewInput {
+    func dismiss() {
+        self.dismiss(animated: true)
+    }
+}
+
+extension TemplateAddingViewController {
     private func setupViews() {
         view.backgroundColor = .systemBackground
 
@@ -140,24 +222,5 @@ final class TemplateAddingViewController: UIViewController {
             NSLayoutConstraint(item: bodyResponseTextField, attribute: .top, relatedBy: .equal, toItem: bodyRequestTextField, attribute: .bottom, multiplier: 1, constant: 16),
             NSLayoutConstraint(item: bodyResponseTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
         ])
-    }
-
-    @objc private func saveButtonTapped() {
-        guard let name = nameTextField.text,
-              let template = templateTextField.text,
-              !name.isEmpty, !template.isEmpty
-        else {
-            return
-        }
-        output.saveBreakpoint(name: name, template: template)
-    }
-    @objc private func closeButtonTapped() { output.viewWantsToDismiss() }
-}
-
-// MARK: TemplateAddingViewInput
-
-extension TemplateAddingViewController: TemplateAddingViewInput {
-    func dismiss() {
-        self.dismiss(animated: true)
     }
 }

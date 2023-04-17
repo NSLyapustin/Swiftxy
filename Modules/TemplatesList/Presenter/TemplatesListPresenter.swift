@@ -22,6 +22,7 @@ final class TemplatesListPresenter {
 
     private func reloadData() {
         let breakpoints = try! localStorage?.fetchBreakpoints().map { TemplateListTableViewCell.DisplayData(name: $0.name, template: $0.template) } ?? []
+        
         view?.set(breakpoints: breakpoints)
     }
 }
@@ -41,6 +42,21 @@ extension TemplatesListPresenter: TemplatesListViewOutput {
 
     func deleteButtonTapped(at index: Int) {
         try! localStorage?.delete(at: index)
+    }
+
+    func didSelectBreakpoint(at index: Int) {
+        let breakpoint = try! localStorage?.fetchBreakpoints()[index]
+        let viewController = TemplateAddingModuleBuilder(
+            displayData: TemplateAddingViewController.DisplayData(
+                id: breakpoint!.id!,
+                name: breakpoint!.name,
+                template: breakpoint!.template,
+                requestBody: breakpoint!.requestBody,
+                responseBody: breakpoint!.responseBody
+            ),
+            output: self
+        ).build()
+        self.view?.present(viewController)
     }
 }
 

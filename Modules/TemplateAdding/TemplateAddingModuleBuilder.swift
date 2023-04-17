@@ -9,25 +9,23 @@ import UIKit
 
 final class TemplateAddingModuleBuilder {
 
-    // MARK:
-
-    typealias RequestDisplayData = RequestBreakpointViewController.DisplayData
-
     // MARK: Private properties
 
     private let output: TemplateAddingModuleOutput
+    private let displayData: TemplateAddingViewController.DisplayData?
 
     // MARK: Lifecycle
 
-    init(displayData: RequestDisplayData? = nil, output: TemplateAddingModuleOutput) {
+    init(displayData: TemplateAddingViewController.DisplayData? = nil, output: TemplateAddingModuleOutput) {
         self.output = output
+        self.displayData = displayData
     }
 
     // MARK: Internal methods
 
     func build() -> UIViewController {
         let presenter = TemplateAddingPresenter(output: output)
-        let view = TemplateAddingViewController(output: presenter)
+        let view = TemplateAddingViewController(displayData: displayData, output: presenter)
         presenter.view = view
 
         return view

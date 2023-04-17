@@ -53,6 +53,27 @@ class CoreDataStorage {
         try managedObjectContext?.save()
     }
 
+    public func update(_ breakpoint: BreakpointRule) throws {
+        let fetchRequest = BreakpointRuleManagedObject.fetchRequest()
+
+        fetchRequest.predicate = NSPredicate(
+            format: "%K == %@", "id", breakpoint.id! as CVarArg
+        )
+
+        let context = persistentContainer!.viewContext
+
+        let objects = try context.fetch(fetchRequest)
+
+        let object = objects.first!
+
+        object.ruleName = breakpoint.name
+        object.ruleTemplate = breakpoint.template
+        object.requestBody = breakpoint.requestBody
+        object.responseBody = breakpoint.responseBody
+
+        try context.save()
+    }
+
     public func fetchBreakpoints() throws -> [BreakpointRule] {
         let fetchRequest = BreakpointRuleManagedObject.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
@@ -63,13 +84,13 @@ class CoreDataStorage {
         // Fetch all objects of one Entity type
         let objects = try context.fetch(fetchRequest)
 
-        return objects.map { BreakpointRule(name: $0.ruleName, template: $0.ruleTemplate) }
+        return objects.map { BreakpointRule(id: $0.id, name: $0.ruleName, template: $0.ruleTemplate, requestBody: $0.requestBody, responseBody: $0.responseBody) }
     }
 
     public func delete(at index: Int) throws {
         let fetchRequest = BreakpointRuleManagedObject.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-
+        // 03044EE1-E905-4846-935B-C5E3F7E85665
         // Get a reference to a NSManagedObjectContext
         let context = persistentContainer!.viewContext
 
