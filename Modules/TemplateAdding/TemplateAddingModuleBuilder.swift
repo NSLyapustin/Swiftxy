@@ -11,12 +11,12 @@ final class TemplateAddingModuleBuilder {
 
     // MARK: Private properties
 
-    private let output: TemplateAddingModuleOutput
+    private let output: TemplateAddingModuleOutput?
     private let displayData: TemplateAddingViewController.DisplayData?
 
     // MARK: Lifecycle
 
-    init(displayData: TemplateAddingViewController.DisplayData? = nil, output: TemplateAddingModuleOutput) {
+    init(displayData: TemplateAddingViewController.DisplayData? = nil, output: TemplateAddingModuleOutput?) {
         self.output = output
         self.displayData = displayData
     }

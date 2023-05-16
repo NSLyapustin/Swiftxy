@@ -32,6 +32,7 @@
 		63310BCC29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BCA29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift */; };
 		63310BD129BE6AAA00BD0A43 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BD029BE6AAA00BD0A43 /* NSManagedObjectContext.swift */; };
 		63310BD529BE6EFD00BD0A43 /* BreakpointRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */; };
+		63784BA529F71DA5000B447A /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63784BA429F71DA5000B447A /* DeepLinkHandler.swift */; };
 		6380F74929C5C340002D5187 /* RequestBreakpointModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74829C5C340002D5187 /* RequestBreakpointModuleBuilder.swift */; };
 		6380F74B29C5C34D002D5187 /* RequestBreakpointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74A29C5C34D002D5187 /* RequestBreakpointViewController.swift */; };
 		6380F74D29C5C356002D5187 /* RequestBreakpointViewIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */; };
@@ -100,6 +101,7 @@
 		63310BCA29BE234D00BD0A43 /* BreakpointRuleManagedObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BreakpointRuleManagedObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		63310BD029BE6AAA00BD0A43 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakpointRule.swift; sourceTree = "<group>"; };
+		63784BA429F71DA5000B447A /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
 		6380F74829C5C340002D5187 /* RequestBreakpointModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointModuleBuilder.swift; sourceTree = "<group>"; };
 		6380F74A29C5C34D002D5187 /* RequestBreakpointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointViewController.swift; sourceTree = "<group>"; };
 		6380F74C29C5C356002D5187 /* RequestBreakpointViewIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBreakpointViewIO.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		44E4F1A0D03F4EB5BB30D8979CF8B05B /* Swiftxy */ = {
 			isa = PBXGroup;
 			children = (
+				63784BA329F71D95000B447A /* DeepLink */,
 				63310BCD29BE6A8E00BD0A43 /* Storage */,
 				63310BC029BE22BE00BD0A43 /* Models */,
 				63310B9529BE1FE400BD0A43 /* Extensions */,
@@ -338,6 +341,14 @@
 				63310BD429BE6EFD00BD0A43 /* BreakpointRule.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		63784BA329F71D95000B447A /* DeepLink */ = {
+			isa = PBXGroup;
+			children = (
+				63784BA429F71DA5000B447A /* DeepLinkHandler.swift */,
+			);
+			path = DeepLink;
 			sourceTree = "<group>";
 		};
 		6380F74529C5C318002D5187 /* RequestBreakpoint */ = {
@@ -634,6 +645,7 @@
 				6380F75129C5C36C002D5187 /* RequestBreakpointPresenter.swift in Sources */,
 				630B598629D9F73100962A9F /* ResponseBreakpointViewController.swift in Sources */,
 				63310BBF29BE1FE400BD0A43 /* ProxiedURLSession.swift in Sources */,
+				63784BA529F71DA5000B447A /* DeepLinkHandler.swift in Sources */,
 				63EE7C7029D098CB002ACE4F /* TextView.swift in Sources */,
 				63310BD129BE6AAA00BD0A43 /* NSManagedObjectContext.swift in Sources */,
 				63310BBC29BE1FE400BD0A43 /* TemplatesListViewController.swift in Sources */,

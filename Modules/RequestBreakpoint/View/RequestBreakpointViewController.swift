@@ -17,6 +17,7 @@ public final class RequestBreakpointViewController: UIViewController {
         let headers: [String: String]?
         let body: String?
         let forUrlComponents: Bool
+        let template: BreakpointRule
     }
 
     // MARK: Internal properties
@@ -392,7 +393,7 @@ extension RequestBreakpointViewController: RequestBreakpointViewInput {
             headersTextField.isHidden = true
             headersLabel.isHidden = true
         } else {
-            bodyTextField.text = displayData.body
+            bodyTextField.text = displayData.template.requestBody == nil ? displayData.body : displayData.template.requestBody
             headersTextField.text = convertDictionaryToString(displayData.headers)
         }
     }

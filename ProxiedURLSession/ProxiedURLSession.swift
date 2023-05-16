@@ -19,7 +19,7 @@ public class ProxiedURLSession {
 
     open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
 
-        guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
+        guard let optionalTemplates = try? localStorage?.fetchBreakpoints(),
               let templates = optionalTemplates
         else {
             completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
@@ -35,7 +35,7 @@ public class ProxiedURLSession {
 
         // Check if url matches template
         for template in templates {
-            if URL.compareURL(url.absoluteString, with: template) {
+            if URL.compareURL(url.absoluteString, with: template.template) {
                 templateFounded = true
                 let requestBreakpointViewController = RequestBreakpointModuleBuilder(
                     displayData: .init(
@@ -43,7 +43,8 @@ public class ProxiedURLSession {
                         queryParameters: convertStringToDictionary(url.query),
                         headers: request.allHTTPHeaderFields,
                         body: String(data: request.httpBody!, encoding: .utf8),
-                        forUrlComponents: false
+                        forUrlComponents: false,
+                        template: template
                     )
                 ).build()
                 requestBreakpointViewController.onConfiguredWithURLRequest = { configuredRequest, toResponse in
@@ -79,7 +80,7 @@ public class ProxiedURLSession {
 
     open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
         // Getting all proxied templates
-        guard let optionalTemplates = (try? localStorage?.fetchBreakpoints().map { $0.template }),
+        guard let optionalTemplates = try? localStorage?.fetchBreakpoints(),
               let templates = optionalTemplates
         else {
             completionDataTask(session.dataTask(with: url, completionHandler: completionHandler))
@@ -90,7 +91,7 @@ public class ProxiedURLSession {
 
         // Check if url matches template
         for template in templates {
-            if URL.compareURL(url.absoluteString, with: template) {
+            if URL.compareURL(url.absoluteString, with: template.template) {
                 templateFounded = true
                 let requestBreakpointViewController = RequestBreakpointModuleBuilder(
                     displayData: .init(
@@ -98,7 +99,8 @@ public class ProxiedURLSession {
                         queryParameters: convertStringToDictionary(url.query),
                         headers: nil,
                         body: nil,
-                        forUrlComponents: true
+                        forUrlComponents: true,
+                        template: template
                     )
                 ).build()
                 requestBreakpointViewController.onConfiguredWithURLComponents = { configuredComponents, toResponse in

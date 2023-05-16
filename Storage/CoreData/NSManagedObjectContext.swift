@@ -49,9 +49,13 @@ class CoreDataStorage {
         breakpointManagedObject.id = UUID()
         breakpointManagedObject.ruleName = breakpoint.name
         breakpointManagedObject.ruleTemplate = breakpoint.template
+        breakpointManagedObject.requestBody = breakpoint.requestBody
+        breakpointManagedObject.responseBody = breakpoint.responseBody
 
         try managedObjectContext?.save()
     }
+
+//    swiftxy://?name=testName&template=testTemplate&requestBody=testReqBody&responseBody=testRespBody
 
     public func update(_ breakpoint: BreakpointRule) throws {
         let fetchRequest = BreakpointRuleManagedObject.fetchRequest()

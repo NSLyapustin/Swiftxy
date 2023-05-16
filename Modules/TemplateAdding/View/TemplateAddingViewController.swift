@@ -12,7 +12,7 @@ final class TemplateAddingViewController: UIViewController {
     // MARK: Nested types
 
     struct DisplayData {
-        let id: UUID
+        let id: UUID?
         let name: String
         let template: String
         let requestBody: String?
@@ -154,7 +154,7 @@ final class TemplateAddingViewController: UIViewController {
         bodyRequestTextField.text = displayData.requestBody
         bodyResponseTextField.text = displayData.responseBody
 
-        isEditingMode = true
+        isEditingMode = id == nil ? false : true
     }
 }
 

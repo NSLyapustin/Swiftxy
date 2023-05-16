@@ -20,7 +20,7 @@ final class TemplateAddingPresenter {
 
     // MARK: Lifecycle
 
-    init(output: TemplateAddingModuleOutput) {
+    init(output: TemplateAddingModuleOutput?) {
         self.output = output
     }
 }
