@@ -39,7 +39,7 @@ public class ProxiedURLSession {
                 templateFounded = true
                 let requestBreakpointViewController = RequestBreakpointModuleBuilder(
                     displayData: .init(
-                        url: url.scheme! + "://" + url.host! + url.path,
+                        url: url.scheme! + "://" + url.host! + ":\(url.port!)" + url.path,
                         queryParameters: convertStringToDictionary(url.query),
                         headers: request.allHTTPHeaderFields,
                         body: String(data: request.httpBody!, encoding: .utf8),
@@ -57,7 +57,7 @@ public class ProxiedURLSession {
                                             url: configuredRequest.url!.absoluteString,
                                             statusCode: 200,
                                             headers: self.convertAnyHasableAnyToDictionaryOfStrings(inputDict: (response as! HTTPURLResponse).allHeaderFields),
-                                            body: String(data: data!, encoding: .utf8) ?? "",
+                                            body: String(data: template.responseBody?.replacingOccurrences(of: " ", with: "").data(using: .utf8) ?? data!, encoding: .utf8) ?? "",
                                             completionHandler: completionHandler
                                         ),
                                         output: requestBreakpointViewController),

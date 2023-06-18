@@ -239,7 +239,7 @@ public final class RequestBreakpointViewController: UIViewController {
         let components = string.components(separatedBy: "\n")
 
         for component in components {
-            let keyValuePair = component.components(separatedBy: "=")
+            let keyValuePair = component.components(separatedBy: " = ")
             if keyValuePair.count == 2 {
                 let key = keyValuePair[0].trimmingCharacters(in: .whitespacesAndNewlines)
                 let value = keyValuePair[1].trimmingCharacters(in: .whitespacesAndNewlines)
