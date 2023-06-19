@@ -42,20 +42,20 @@ final class TemplateAddingViewController: UIViewController {
         return textField
     }()
 
-    private let bodyRequestTextField: UITextField = {
-        let textField = TextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.contentVerticalAlignment = .top
-        textField.placeholder = "Request body"
-        return textField
+    private let bodyRequestTextField: TextView = {
+        let textView = TextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = "Request body"
+        textView.textColor = UIColor.lightGray
+        return textView
     }()
 
-    private let bodyResponseTextField: UITextField = {
-        let textField = TextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.contentVerticalAlignment = .top
-        textField.placeholder = "Response body"
-        return textField
+    private let bodyResponseTextField: TextView = {
+        let textView = TextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.text = "Response body"
+        textView.textColor = UIColor.lightGray
+        return textView
     }()
 
     private let closeButton: UIButton = {
@@ -212,15 +212,33 @@ extension TemplateAddingViewController {
             NSLayoutConstraint(item: bodyRequestTextField, attribute: .leading, relatedBy: .equal, toItem: nameTextField, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: bodyRequestTextField, attribute: .trailing, relatedBy: .equal, toItem: nameTextField, attribute: .trailing, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: bodyRequestTextField, attribute: .top, relatedBy: .equal, toItem: templateTextField, attribute: .bottom, multiplier: 1, constant: 16),
-            NSLayoutConstraint(item: bodyRequestTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
+            NSLayoutConstraint(item: bodyRequestTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)
         ])
+        bodyRequestTextField.delegate = self
 
         view.addSubview(bodyResponseTextField)
         NSLayoutConstraint.activate([
             NSLayoutConstraint(item: bodyResponseTextField, attribute: .leading, relatedBy: .equal, toItem: nameTextField, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: bodyResponseTextField, attribute: .trailing, relatedBy: .equal, toItem: nameTextField, attribute: .trailing, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: bodyResponseTextField, attribute: .top, relatedBy: .equal, toItem: bodyRequestTextField, attribute: .bottom, multiplier: 1, constant: 16),
-            NSLayoutConstraint(item: bodyResponseTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 100)
+            NSLayoutConstraint(item: bodyResponseTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 200)
         ])
+        bodyResponseTextField.delegate = self
+    }
+}
+
+extension TemplateAddingViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Placeholder"
+            textView.textColor = UIColor.lightGray
+        }
     }
 }

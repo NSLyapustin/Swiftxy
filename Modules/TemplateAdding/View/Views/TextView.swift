@@ -21,7 +21,8 @@ class TextView: UITextView {
     private func setupView() {
         self.layer.cornerRadius = 5
         self.clipsToBounds = true
-        self.layer.borderColor = UIColor.gray.cgColor
-        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor(white: 2/3, alpha: 0.5).cgColor
+        self.layer.borderWidth = 1
+        self.font = .systemFont(ofSize: 17)
     }
 }

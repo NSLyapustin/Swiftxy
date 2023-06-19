@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--URLRequest-->
         <scene sceneID="Fyj-nF-8CH">
             <objects>
                 <viewController id="egh-30-Ufp" customClass="URLRequestViewController" customModule="Swiftxy_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                             <constraint firstItem="K5y-vg-Nkq" firstAttribute="centerX" secondItem="pu5-rb-80W" secondAttribute="centerX" id="tQD-ov-ZVt"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="RJS-uu-sIA"/>
+                    <tabBarItem key="tabBarItem" title="URLRequest" image="paperplane.fill" catalog="system" id="RJS-uu-sIA"/>
                     <connections>
                         <outlet property="dataLabel" destination="qfK-Jn-Rjs" id="RRU-y3-rc9"/>
                     </connections>
@@ -82,7 +82,7 @@
             </objects>
             <point key="canvasLocation" x="-1583" y="293"/>
         </scene>
-        <!--Item-->
+        <!--URL-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="URLViewController" customModule="Swiftxy_Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +128,7 @@
                             <constraint firstItem="tDA-NX-vd9" firstAttribute="top" secondItem="SS1-iY-qOU" secondAttribute="bottom" constant="15" id="yYv-g9-nW6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Uvx-nW-i5X"/>
+                    <tabBarItem key="tabBarItem" title="URL" image="paperplane.fill" catalog="system" id="Uvx-nW-i5X"/>
                     <connections>
                         <outlet property="dataLabel" destination="sVG-PC-Sge" id="Pm9-Ma-jCY"/>
                     </connections>
@@ -139,6 +139,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
