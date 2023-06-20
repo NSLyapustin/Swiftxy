@@ -23,7 +23,7 @@ final class URLRequestViewController: UIViewController {
     }
 
     @IBAction func sendRequestButtonDidTapped(_ sender: Any) {
-        var components = URLComponents(string: "http://proxyman.local:8002/process_json")!
+        var components = URLComponents(string: "http://127.0.0.1:8002/process_json")!
         components.queryItems = [
             URLQueryItem(name: "example", value: "urlrequest")
         ]

@@ -146,6 +146,9 @@ final class TemplateAddingViewController: UIViewController {
     private func setupDisplayData() {
         guard let displayData else { return }
 
+        bodyRequestTextField.textColor = UIColor.black
+        bodyResponseTextField.textColor = UIColor.black
+
         id = displayData.id
 
         nameTextField.text = displayData.name
@@ -237,7 +240,7 @@ extension TemplateAddingViewController: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "Placeholder"
+            textView.text = "Body"
             textView.textColor = UIColor.lightGray
         }
     }

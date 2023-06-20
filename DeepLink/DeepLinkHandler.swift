@@ -21,10 +21,21 @@ public class DeepLinkHandler {
 
         let breakpoint = BreakpointRule(id: nil, name: name, template: template, requestBody: requestBody, responseBody: responseBody)
         UIApplication.shared.keyWindow?.rootViewController?.present(TemplateAddingModuleBuilder.init(
-            displayData: .init(id: nil, name: name, template: template, requestBody: requestBody, responseBody: responseBody),
+            displayData: .init(id: nil, name: name, template: template, requestBody: pretty(requestBody), responseBody: pretty(responseBody)),
             output: nil
         ).build(), animated: true)
         print(breakpoint)
+    }
+
+    private func pretty(_ string: String?) -> String {
+        guard let data = string?.data(using: .utf8) else { return "" }
+
+        if let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers),
+           let jsonData = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted) {
+            return String(decoding: jsonData, as: UTF8.self)
+        } else {
+            return ""
+        }
     }
 }
 
