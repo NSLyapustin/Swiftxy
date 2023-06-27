@@ -6,9 +6,10 @@
 //  Copyright © 2023 CocoaPods. All rights reserved.
 //
 
-struct User: Codable {
-    let name: String
-    let age: String
+import Swiftxy
+
+struct Demo: Codable {
+    let demo: String
 }
 
 import UIKit
@@ -28,7 +29,7 @@ final class URLRequestViewController: UIViewController {
             URLQueryItem(name: "example", value: "urlrequest")
         ]
 
-        let requestDto = RequestExample(id: 1, type: "Example")
+        let requestDto = Demo(demo: "Demo") 
 
         var request = URLRequest(url: components.url!)
         request.httpBody = try! JSONEncoder().encode(requestDto)
@@ -45,6 +46,13 @@ final class URLRequestViewController: UIViewController {
             }
         } completionDataTask: { task in
             task?.resume()
+        }
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            self.present(TemplatesListModuleBuilder().build(), animated: true)
+//            self.present(ResponseBreakpointViewController(displayData: ResponseBreakpointViewController.DisplayData()), animated: true)
         }
     }
 }

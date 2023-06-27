@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sBM-ss-gnB">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="egh-30-Ufp">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -17,41 +17,45 @@
                         <viewControllerLayoutGuide type="bottom" id="Neg-2d-EuV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="pu5-rb-80W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4n-mi-J4t">
-                                <rect key="frame" x="155.5" y="88" width="64" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Clear"/>
-                                <connections>
-                                    <action selector="clearButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="cDE-os-yEq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-vg-Nkq">
-                                <rect key="frame" x="69" y="138" width="237" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Send request (URLRequest)"/>
-                                <connections>
-                                    <action selector="sendRequestButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="PJx-aV-DdI"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeholder" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfK-Jn-Rjs">
-                                <rect key="frame" x="32" y="196" width="311" height="20.5"/>
+                                <rect key="frame" x="36" y="141.33333333333334" width="358" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsG-qM-7tb">
+                                <rect key="frame" x="16" y="75" width="398" height="34.333333333333343"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-vg-Nkq">
+                                        <rect key="frame" x="0.0" y="0.0" width="199" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Send request"/>
+                                        <connections>
+                                            <action selector="sendRequestButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="PJx-aV-DdI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4n-mi-J4t">
+                                        <rect key="frame" x="199" y="0.0" width="199" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Clear"/>
+                                        <connections>
+                                            <action selector="clearButtonDidTapped:" destination="egh-30-Ufp" eventType="touchUpInside" id="cDE-os-yEq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="K5y-vg-Nkq" firstAttribute="top" secondItem="e4n-mi-J4t" secondAttribute="bottom" constant="15" id="6TY-9k-q7T"/>
-                            <constraint firstItem="e4n-mi-J4t" firstAttribute="centerX" secondItem="pu5-rb-80W" secondAttribute="centerX" id="PFa-lL-zD2"/>
+                            <constraint firstItem="qfK-Jn-Rjs" firstAttribute="top" secondItem="hsG-qM-7tb" secondAttribute="bottom" constant="32" id="ArA-mk-vWT"/>
+                            <constraint firstItem="hsG-qM-7tb" firstAttribute="leading" secondItem="pu5-rb-80W" secondAttribute="leading" constant="16" id="Chp-0r-frW"/>
+                            <constraint firstAttribute="trailing" secondItem="hsG-qM-7tb" secondAttribute="trailing" constant="16" id="UYC-AF-mli"/>
                             <constraint firstItem="qfK-Jn-Rjs" firstAttribute="leading" secondItem="pu5-rb-80W" secondAttribute="leadingMargin" constant="16" id="Vo0-z2-9uC"/>
-                            <constraint firstItem="e4n-mi-J4t" firstAttribute="top" secondItem="tW0-6F-6HW" secondAttribute="bottom" constant="88" id="WvU-cl-jjF"/>
-                            <constraint firstItem="qfK-Jn-Rjs" firstAttribute="top" secondItem="K5y-vg-Nkq" secondAttribute="bottom" constant="23" id="hRC-P8-gYn"/>
+                            <constraint firstItem="hsG-qM-7tb" firstAttribute="top" secondItem="tW0-6F-6HW" secondAttribute="bottom" constant="16" id="o43-JJ-11U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qfK-Jn-Rjs" secondAttribute="trailing" constant="16" id="qbh-r0-JJk"/>
-                            <constraint firstItem="K5y-vg-Nkq" firstAttribute="centerX" secondItem="pu5-rb-80W" secondAttribute="centerX" id="tQD-ov-ZVt"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="URLRequest" image="paperplane.fill" catalog="system" id="RJS-uu-sIA"/>
@@ -61,7 +65,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2aZ-2G-St2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-684" y="602"/>
+            <point key="canvasLocation" x="-684" y="601.34932533733138"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kRM-iI-GNY">
+            <objects>
+                <viewController id="uXP-7s-YiJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="97U-Dm-gkt"/>
+                        <viewControllerLayoutGuide type="bottom" id="77T-X5-Z9D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eE9-K7-xOp">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Leb-Dv-tUd">
+                                <rect key="frame" x="44" y="83" width="342" height="791"/>
+                                <color key="backgroundColor" systemColor="systemCyanColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Leb-Dv-tUd" firstAttribute="leading" secondItem="eE9-K7-xOp" secondAttribute="leadingMargin" constant="24" id="66c-TJ-hVv"/>
+                            <constraint firstItem="77T-X5-Z9D" firstAttribute="top" secondItem="Leb-Dv-tUd" secondAttribute="bottom" constant="24" id="hJr-u1-Ze3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Leb-Dv-tUd" secondAttribute="trailing" constant="24" id="mNa-S4-Qpe"/>
+                            <constraint firstItem="Leb-Dv-tUd" firstAttribute="top" secondItem="97U-Dm-gkt" secondAttribute="bottom" constant="24" id="pe4-Gu-ilI"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fw8-ID-MiT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="491" y="217"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hAT-K3-bi6">
@@ -91,11 +125,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDA-NX-vd9">
-                                <rect key="frame" x="100.5" y="138" width="174" height="35"/>
+                                <rect key="frame" x="128" y="197" width="174" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Send request (URL)"/>
                                 <connections>
@@ -103,13 +137,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeholder" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVG-PC-Sge">
-                                <rect key="frame" x="32" y="196" width="311" height="20.5"/>
+                                <rect key="frame" x="36" y="255.00000000000003" width="358" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SS1-iY-qOU">
-                                <rect key="frame" x="155.5" y="88" width="64" height="35"/>
+                                <rect key="frame" x="183" y="147" width="64" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Clear"/>
                                 <connections>
@@ -142,6 +176,9 @@
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemCyanColor">
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

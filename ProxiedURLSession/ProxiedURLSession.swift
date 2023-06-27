@@ -18,7 +18,7 @@ public class ProxiedURLSession {
     // MARK: Public methods
 
     open func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
-
+        #if DEBUG
         guard let optionalTemplates = try? localStorage?.fetchBreakpoints(),
               let templates = optionalTemplates
         else {
@@ -76,9 +76,13 @@ public class ProxiedURLSession {
         if !templateFounded {
             completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
         }
+        #else
+        completionDataTask(session.dataTask(with: request, completionHandler: completionHandler))
+        #endif
     }
 
     open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void, completionDataTask: @escaping ((URLSessionDataTask?) -> Void)) {
+        #if DEBUG
         // Getting all proxied templates
         guard let optionalTemplates = try? localStorage?.fetchBreakpoints(),
               let templates = optionalTemplates
@@ -133,6 +137,9 @@ public class ProxiedURLSession {
         if !templateFounded {
             completionDataTask(session.dataTask(with: url, completionHandler: completionHandler))
         }
+        #else
+        completionDataTask(session.dataTask(with: url, completionHandler: completionHandler))
+        #endif
     }
 
     public func addTemplate(_ template: String) {
